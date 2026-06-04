@@ -21,4 +21,24 @@
     </resource-ref>    
          
    
+   <!-- pagine di errore personalizzate -->
+    <error-page>
+    	<error-code> 404</error-code>
+    	<location>/errori/NotFound.jsp </location>
+    </error-page>
+     
+       <error-page>
+    	<error-code> 500</error-code>
+    	<location>/errori/ServerErr.jsp </location>
+    </error-page>
+     
+     
+       <error-page>
+    	<error-code> 403</error-code>
+    	<location>/errori/NoPermessi.jsp </location>
+    </error-page>
+   
+   
+   
+   
 </web-app>
