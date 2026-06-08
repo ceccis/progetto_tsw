@@ -27,6 +27,7 @@ public class PaginaUtente extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("pageTitle", "Profilo Personale");
 		request.getRequestDispatcher("/WEB-INF/views/profilo.jsp").forward(request,  response);
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
