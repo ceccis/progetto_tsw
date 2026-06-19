@@ -1,33 +1,69 @@
 @charset "UTF-8";
 
-h1 {          
-	color: #443222;
-	margin: 10px;
-	padding: 15px;
-	background-color: #85ceee;
-	margin-top: 80px;
-	margin-left: 40px;
+body {                 /* tutto ciò presente sulla pagina (header, footer menu ecc) */
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	background-color: #FFF9F3;
+	min-height: 100vh;
+	padding-top: 200px;       /*per non far sparire gli elementi sotto l'header */
+}
+
+main {                 /*contenuti unici di quella pagina, escludendo header e footer*/
+	flex: 1;
+}
+
+.titolo-main {
+	margin: 0;
 	font-size: 50px;
 }
 
-body {
-	background-color: #FFF9F3
+#header {
+	background-color: #7C7960;
+	text-align: left;
+	padding: 30px;
+	font-size: 14px;
+	position: fixed;
+	width: 100%;
+	height: 70px;
+	top: 0;
+	left: 0; 
 }
 
 footer {
 	background-color: #7C7960;
 	font-size: 30px;
 	text-align: center;	
-	color: #2E96FF;
-	padding: 30px;               
-  	font-size: 14px;             
+	padding: 30px;                           
   	margin-top: 50px; 
 }
 
-header {
-	background-color: #7C7960;
-	text-align: center;
-	padding: 30px;
-	font-size: 14px;
-	margin: 50 px;
+.btn-login {
+	background-color: #FFF9F3;
+	color: black;
+	border-style: outset;
+	padding: 10px;
+	margin: 10px;
+	position:fixed;
+	right: 120px;
+	top: 20px;
+}
+
+.btn-registrazione {
+	background-color: #755151;
+	color: white;
+	border-style: outset;
+	padding: 10px;
+	margin: 10px;
+	position: fixed;
+	right: 15px;
+	top: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
 }
