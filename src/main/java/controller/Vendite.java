@@ -27,6 +27,7 @@ public class Vendite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("pageTitle", "Pagina Vendite");
 		request.getRequestDispatcher("/WEB-INF/views/vendite.jsp").forward(request, response);
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}

@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
+		request.setAttribute("pageTitle", "Login");
 		request.getRequestDispatcher("/WEB-INF/views/login.jsp").forward(request,  response);
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
