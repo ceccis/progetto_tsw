@@ -51,7 +51,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	            p.setData(rs.getDate("data_pubblicazione").toLocalDate());
 	            p.setIdVenditore(rs.getInt("id_venditore"));
 	            return p;
-				
+	            
 			}
 			
 			//se questo prodotto non esiste, restituisco null
@@ -158,7 +158,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 			ps.setString(7, p.getDescrizione());
 			ps.setDate(8, java.sql.Date.valueOf(p.getData()));
 			ps.setInt(9, p.getIdVenditore());
-			ps.setInt(10, p.getIdLibro());
+			ps.setInt(10, p.getId());
 			
 			ps.executeUpdate();			
 			

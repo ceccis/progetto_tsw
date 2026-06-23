@@ -18,8 +18,9 @@ public class Prodotto{
 	public Prodotto() {}
 	
 	
+	//questo costruttore si puo anche togliere in realta' perche' non viene usato
 	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data, int id_venditore) {
-		this.id = id;
+		this.id = id; 
 		this.titolo= titolo;
 		this.prezzo= prezzo;
 		this.foto = foto;
@@ -33,7 +34,7 @@ public class Prodotto{
 	}
 	
 	
-	public int getIdLibro() {return id;}
+	public int getId() {return id;}
 	public void setId(int id) {this.id = id;}
 	
 	public String getTitolo() {return titolo;}
