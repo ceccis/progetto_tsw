@@ -13,11 +13,12 @@ public class Prodotto{
 	private String genere;
 	private String descrizione;
 	private LocalDate data;
+	private int id_venditore;
 	
 	public Prodotto() {}
 	
 	
-	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data) {
+	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data, int id_venditore) {
 		this.id = id;
 		this.titolo= titolo;
 		this.prezzo= prezzo;
@@ -27,11 +28,12 @@ public class Prodotto{
 		this.genere = genere;
 		this.descrizione= descrizione;
 		this.data= data;
+		this.id_venditore = id_venditore;
 		
 	}
 	
 	
-	public int getId() {return id;}
+	public int getIdLibro() {return id;}
 	public void setId(int id) {this.id = id;}
 	
 	public String getTitolo() {return titolo;}
@@ -57,6 +59,9 @@ public class Prodotto{
 	
 	public LocalDate getData() {return data;}
 	public void setData(LocalDate data) {this.data=data;}
+	
+	public int getIdVenditore() {return id_venditore;}
+	public void setIdVenditore(int id_venditore) {this.id_venditore = id_venditore;}
 	
 	
 }
