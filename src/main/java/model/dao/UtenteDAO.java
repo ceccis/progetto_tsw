@@ -11,7 +11,7 @@ import model.bean.Utente;
 
 public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 
-	//metodo per recuperare un utente dato un determinato id
+//metodo per recuperare un utente dato un determinato id
 	@Override
 	public Utente doRetrieveByKey(Integer id) throws SQLException {
 		
@@ -34,11 +34,14 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 				u.setUsername(rs.getString("username"));
 				u.setEmail(rs.getString("email"));
 				u.setBio(rs.getString("bio"));
+				u.setNazione(rs.getString("nazione"));//aggiunta indirizzo in questo metodo
+				u.setRegione(rs.getString("regione"));
+				u.setProvincia(rs.getString("provincia"));
+				u.setComune(rs.getString("comune"));
+				u.setVia(rs.getString("via"));
+				u.setNumCiv(rs.getString("numCiv"));
 				return u;
 			}
-			
-			
-			
 			
 			return null;
 			
@@ -49,8 +52,52 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 		
 	}
 
+
 	
-	//metodo per recuperare tutti gli utenti presenti
+//metodo per recuperare un utente tramite username e password (per login)
+	public Utente doRetrieveByUsernameAndPsw(String usernameInserito, String pswHash) { 
+		
+		String sql = "SELECT id_utente, nome, cognome, ruolo, username, email, bio, nazione, regione, provincia, comune, via, numCiv FROM utenteRegistrato WHERE username = ? AND password_hash = ?";
+		
+		try(Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql)){
+			
+			ps.setString(1, usernameInserito);
+			ps.setString(2, pswHash);
+			
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+			Utente u = new Utente();
+			u.setId(rs.getInt("id_utente"));
+			u.setNome(rs.getString("nome"));
+			u.setRuolo(rs.getString("ruolo"));
+			u.setCognome(rs.getString("cognome"));
+			u.setUsername(rs.getString("username"));
+			u.setEmail(rs.getString("email"));
+			u.setBio(rs.getString("bio"));
+			u.setNazione(rs.getString("nazione"));
+			u.setRegione(rs.getString("regione"));
+			u.setProvincia(rs.getString("provincia"));
+			u.setComune(rs.getString("comune"));
+			u.setVia(rs.getString("via"));
+			u.setNumCiv(rs.getString("numCiv"));
+			
+			return u;
+			}
+			
+			return null;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	
+
+	
+//metodo per recuperare tutti gli utenti presenti
 	@Override
 	public List<Utente> doRetrieveAll() throws SQLException {
 		String sql= "SELECT * FROM utenteRegistrato";
@@ -72,7 +119,13 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 				u.setCognome(rs.getString("cognome"));
 				u.setUsername(rs.getString("username"));
 				u.setEmail(rs.getString("email"));
-				u.setBio(rs.getString("bio"));
+				u.setBio(rs.getString("bio")); //aggiunta indirizzo in questo metodo
+				u.setNazione(rs.getString("nazione"));
+				u.setRegione(rs.getString("regione"));
+				u.setProvincia(rs.getString("provincia"));
+				u.setComune(rs.getString("comune"));
+				u.setVia(rs.getString("via"));
+				u.setNumCiv(rs.getString("numCiv"));
 	            
 	            //metto ogni record che trovo nella lista di utenti
 	            utenti.add(u);
@@ -90,7 +143,7 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 	}
 
 
-	//metodo per aggiungere un utente
+//metodo per aggiungere un utente (registrazione)
 	@Override
 	public void doSave(Utente u) throws SQLException {
 		
@@ -126,11 +179,11 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 
 	
 	
-	//metodo per modificare un utente
+//metodo per modificare un utente
 	@Override
 	public void doUpdate(Utente u) throws SQLException {
 		
-		String sql = "UPDATE utenteRegistrato SET nome = ?, ruolo = ?, cognome = ?, username = ?, email = ?, bio = ?, password_hash = ?, naizone = ?, regione = ?, provincia = ?, comune = ?, via = ?, numCiv = ? WHERE id_utente = ? ";
+		String sql = "UPDATE utenteRegistrato SET nome = ?, ruolo = ?, cognome = ?, username = ?, email = ?, bio = ?, password_hash = ?, nazione = ?, regione = ?, provincia = ?, comune = ?, via = ?, numCiv = ? WHERE id_utente = ? ";
 		
 		try(Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql)){
@@ -160,7 +213,7 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 	}
 
 	
-	//metodo per eliminare un utente
+//metodo per eliminare un utente
 	@Override
 	public void doDelete(Integer id) throws SQLException {
 		String sql = "DELETE FROM utenteRegistrato WHERE id_utente = ?";
@@ -176,6 +229,6 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 		e.printStackTrace();
 	}
 
-}
+	}
 
 }

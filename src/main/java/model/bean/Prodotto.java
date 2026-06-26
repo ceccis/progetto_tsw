@@ -14,12 +14,13 @@ public class Prodotto{
 	private String descrizione;
 	private LocalDate data;
 	private int id_venditore;
+	private boolean disponibilita; //aggiunta attributo disponibilita al bean
 	
 	public Prodotto() {}
 	
 	
 	//questo costruttore si puo anche togliere in realta' perche' non viene usato
-	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data, int id_venditore) {
+	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data, int id_venditore, boolean disponibilita) {
 		this.id = id; 
 		this.titolo= titolo;
 		this.prezzo= prezzo;
@@ -30,6 +31,7 @@ public class Prodotto{
 		this.descrizione= descrizione;
 		this.data= data;
 		this.id_venditore = id_venditore;
+		this.disponibilita = disponibilita;
 		
 	}
 	
@@ -63,6 +65,9 @@ public class Prodotto{
 	
 	public int getIdVenditore() {return id_venditore;}
 	public void setIdVenditore(int id_venditore) {this.id_venditore = id_venditore;}
+	
+	public boolean getDisponibilita () {return disponibilita;}
+	public void setDisponibilita(boolean disponibilita) {this.disponibilita=disponibilita;}
 	
 	
 }

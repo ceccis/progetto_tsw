@@ -50,6 +50,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	            p.setDescrizione(rs.getString("descrizione"));
 	            p.setData(rs.getDate("data_pubblicazione").toLocalDate());
 	            p.setIdVenditore(rs.getInt("id_venditore"));
+	            p.setDisponibilita(rs.getBoolean("disponibilita"));
 	            return p;
 	            
 			}
@@ -67,7 +68,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	}
 	
 	
-//metodo per recuperare tutti i prodotti presenti
+//metodo per recuperare tutti i prodotti presenti nel db (verra' usato per il catalogo da mostrare all'admin)
 	@Override
 	public List<Prodotto> doRetrieveAll() throws SQLException {
 		
@@ -93,6 +94,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	            p.setDescrizione(rs.getString("descrizione"));
 	            p.setData(rs.getDate("data_pubblicazione").toLocalDate());
 	            p.setIdVenditore(rs.getInt("id_venditore"));
+	            p.setDisponibilita(rs.getBoolean("disponibilita"));
 	            
 	            //metto ogni record che trovo nella lista di prodotti
 	            prodotti.add(p);
@@ -108,14 +110,97 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 
 		
 	}
+	
+	
+	//metodo per recuperare tutti i prodotti presenti disponibili (verra' usato per il catalogo da mostrare all'utente, l'utente deve vedere solo i libri disponibili, 
+	//cioe quelli che non sono stati acquistati (essendo un sito di compravendita di usati ogni libro e' una copia unica, quindi se un libro viene acquistato non e' piu' disponibile))
+	
+	public List<Prodotto> doRetrieveAllAvailable() throws SQLException {
+		
+		String sql= "SELECT * FROM libro WHERE disponibilita = TRUE";
+		//creo una lista di prodotti
+		List<Prodotto> prodotti = new ArrayList<>();
+		
+		try(Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql)){
+			
+			ResultSet rs = ps.executeQuery();
+			
+			while (rs.next()) {
+	            Prodotto p = new Prodotto();
+	            
+	            p.setId(rs.getInt("id_libro"));
+	            p.setTitolo(rs.getString("nome"));
+	            p.setPrezzo(rs.getDouble("prezzo"));
+	            p.setFoto(rs.getBytes("foto"));
+	            p.setISBN(rs.getString("ISBN"));
+	            p.setAutore(rs.getString("autore"));
+	            p.setGenere(rs.getString("genere"));
+	            p.setDescrizione(rs.getString("descrizione"));
+	            p.setData(rs.getDate("data_pubblicazione").toLocalDate());
+	            p.setIdVenditore(rs.getInt("id_venditore"));
+	            p.setDisponibilita(rs.getBoolean("disponibilita"));
+	            
+	            //metto ogni record che trovo nella lista di prodotti
+	            prodotti.add(p);
+	        }
+			
+			//restituisco la lista che sara' vuota nel caso in cui non esitano prodotti
+			return prodotti;
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+
+		
+	}
+	
+	
+	//metodo per restituire i libri messi in vendita da un venditore specifico
+	public List<Prodotto> doRetrieveByVenditore(int idVenditore) throws SQLException {
+	    
+	    String sql = "SELECT * FROM libro WHERE id_venditore = ?";
+	    List<Prodotto> prodotti = new ArrayList<>();
+
+	    try (Connection con = ConnectionPool.getConnection();
+	         PreparedStatement ps = con.prepareStatement(sql)) {
+
+	        ps.setInt(1, idVenditore);
+	        ResultSet rs = ps.executeQuery();
+
+	        while (rs.next()) {
+	            Prodotto p = new Prodotto();
+	            p.setId(rs.getInt("id_libro"));
+	            p.setTitolo(rs.getString("nome"));
+	            p.setPrezzo(rs.getDouble("prezzo"));
+	            p.setFoto(rs.getBytes("foto"));
+	            p.setISBN(rs.getString("ISBN"));
+	            p.setAutore(rs.getString("autore"));
+	            p.setGenere(rs.getString("genere"));
+	            p.setDescrizione(rs.getString("descrizione"));
+	            p.setData(rs.getDate("data_pubblicazione").toLocalDate());
+	            p.setIdVenditore(rs.getInt("id_venditore"));
+	            p.setDisponibilita(rs.getBoolean("disponibilita"));
+
+	            prodotti.add(p);
+	        }
+	    } catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+
+	    return prodotti;
+	}
+
 
 	
-	//metodo per aggiungere un prodotto
+//metodo per aggiungere un prodotto 
 	@Override
 	public void doSave(Prodotto p) throws SQLException {
 		
+		//con data_pubblicazione si intende quando il libro e' stato caricato sul sito, non quando e' stato rilasciato al pubblico
 		String sql = "INSERT INTO libro(nome, prezzo, foto, ISBN, autore, genere, descrizione, data_pubblicazione, id_venditore)"
-				     + "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+				     + "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
 		
 		try(Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql)){
@@ -128,8 +213,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 			ps.setString(5, p.getAutore());
 			ps.setString(6, p.getGenere());
 			ps.setString(7, p.getDescrizione());
-			ps.setDate(8, java.sql.Date.valueOf(p.getData()));
-			ps.setInt(9, p.getIdVenditore());
+			ps.setInt(8, p.getIdVenditore());
 			
 			ps.executeUpdate();
 			
@@ -141,7 +225,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	}
 	
 
-	//metodo per modificare un prodotto
+//metodo per modificare un prodotto
 	@Override
 	public void doUpdate(Prodotto p) throws SQLException {
 		String sql = "UPDATE libro SET nome = ?, prezzo = ?, foto = ?, ISBN = ?, autore = ?, genere = ?, descrizione = ?, data_pubblicazione = ?, id_venditore = ? WHERE id_libro = ? ";
@@ -170,7 +254,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	}
 
 	
-	//metodo per eliminare un prodotto
+ //metodo per eliminare un prodotto
 	@Override
 	public void doDelete(Integer id) throws SQLException {
 		
@@ -187,6 +271,23 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 		e.printStackTrace();
 	}
 
-}
+	}
+	
+	
+	//metodo per modificare l'attribtuo disponibilita a false = cio' accade quando un libro viene acquistato e quindi non deve essere piu' mostrato nel catalogo
+	public void disattivaLibro(int idLibro) throws SQLException {
+	    String sql = "UPDATE libro SET disponibilita = FALSE WHERE id_libro = ?";
+	    
+	    try(Connection con = ConnectionPool.getConnection();
+	    	PreparedStatement ps = con.prepareStatement(sql)){
+	    	
+	    	ps.setInt(1, idLibro);
+	    	ps.executeUpdate();
+	    	
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	}
+
 	
 }
