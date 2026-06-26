@@ -1,5 +1,5 @@
--- DROP DATABASE sitotsw;
--- CREATE SCHEMA sitotsw;
+ DROP DATABASE sitotsw;
+ CREATE SCHEMA sitotsw;
 USE sitotsw;
 
 -- creazione tabelle entitá
@@ -9,14 +9,15 @@ USE sitotsw;
 
 CREATE TABLE utenteRegistrato( 
 	id_utente INT AUTO_INCREMENT PRIMARY KEY,
-    ruolo VARCHAR(20) NOT NULL, -- AGGIUNTA ATTRIBUTO RUOLO
-    nome VARCHAR(50) NOT NULL, -- AGGIUNTA NOT NULL AD ATTRIBUTI NOME E COGNOME
+    ruolo VARCHAR(20) NOT NULL DEFAULT 'utente', -- AGGIUNTA ATTRIBUTO RUOLO CON VALORE DEFAULT UTENTE
+   disponibilita BOOLEAN DEFAULT TRUE, -- AGGIUNTA ATTRIBUTO DISPONIBILITA se un libro viene comprato disponibilita = false
+   nome VARCHAR(50) NOT NULL, 
     cognome VARCHAR(50)NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL, 
     email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(100) NOT NULL, -- qui ci andrá l'hash della psw (la faremo usando una libreria java nella parte di registrazione del progetto)
+    password_hash VARCHAR(100) NOT NULL, -- qui ci andrá l'hash della psw 
     bio VARCHAR(500),
-    nazione VARCHAR(100) NOT NULL, -- AGGIUNTA DI ATTRIBUTI PER L'INDIRIZZO DELL'UTENTE
+    nazione VARCHAR(100) NOT NULL, 
     regione VARCHAR(100) NOT NULL,
     provincia VARCHAR(100) NOT NULL,
     comune VARCHAR(100) NOT NULL,
@@ -51,8 +52,8 @@ CREATE TABLE acquisto(
     quantita INT NOT NULL DEFAULT 1, -- default 1 perchè essendo un sito di compravendita di libri usati, non è possibile acquistare più unità di un prodotto
     data_acquisto TIMESTAMP DEFAULT CURRENT_TIMESTAMP, -- quando viene fatto un acquisto verrá inserita automaticamente la data e ora del momento in cui é stato fatto
     metodo_pagamento_usato VARCHAR(50) NOT  NULL,
-	id_venditore INT NOT NULL, -- AGGIUNTA DATI DEL VENDITORE
-    FOREIGN KEY (id_acquirente) REFERENCES utenteRegistrato(id_utente) ON DELETE RESTRICT, -- MODIFICATO CON ON DELETE RESTRICT per garantire la generazione corretta della fattura (utente non può essere eliminato se ha fatto ordini)
+	id_venditore INT NOT NULL, 
+    FOREIGN KEY (id_acquirente) REFERENCES utenteRegistrato(id_utente) ON DELETE RESTRICT, -- per garantire la generazione corretta della fattura (utente non può essere eliminato se ha fatto ordini)
     FOREIGN KEY (id_libro) REFERENCES libro(id_libro) ON DELETE RESTRICT, -- un libro non puó essere rimosso se ci sono degli acquisti collegati ad esso
     FOREIGN KEY (id_venditore) REFERENCES utenteRegistrato(id_utente) ON DELETE RESTRICT -- un venditore non può essere eliminato se ha effettuato una vendita
 );
