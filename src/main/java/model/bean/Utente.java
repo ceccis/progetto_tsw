@@ -1,0 +1,84 @@
+package model.bean;
+
+public class Utente{	
+	
+	private int id;
+	private String nome;
+	private String ruolo;
+	private String cognome;
+	private String username;
+	private String email;
+	private String bio;
+	private String hash; //aggiunta hash della password
+	private String nazione; // aggiunta indirizzo
+	private String regione;
+	private String provincia;
+	private String comune;
+	private String via;
+	private String numCiv;
+	
+	public Utente() {}
+	
+	public Utente(int id, String nome, String ruolo, String cognome, String username, String email, String bio, String hash, String nazione, String regione, String provincia, String comune, String via, String numCiv) {
+		this.id = id;
+		this.nome=nome;
+		this.ruolo = ruolo;
+		this.cognome=cognome;
+		this.username=username;
+		this.email=email;
+		this.bio=bio;
+		this.hash = hash;
+		this.nazione = nazione;
+		this.regione = regione;
+		this.provincia = provincia;
+		this.comune = comune;
+		this.via = via;
+		this.numCiv= numCiv;
+		
+	}
+	
+	
+	public int getId() {return id;}
+	public void setId(int id) {this.id = id;}
+	
+	public String getNome() {return nome;}
+	public void setNome(String nome) {this.nome=nome;}
+	
+	public String getRuolo() {return ruolo;}
+	public void setRuolo(String ruolo) {this.ruolo=ruolo;}
+	
+	public String getCognome() {return cognome;}
+	public void setCognome(String cognome) {this.cognome=cognome;}
+	
+	public String getUsername() {return username;}
+	public void setUsername(String username) {this.username = username;}
+	
+	public String getEmail() {return email;}
+	public void setEmail(String email) {this.email=email;}
+	
+	public String getBio() {return bio;}
+	public void setBio(String bio) {this.bio=bio;}
+	
+	public String getHash() {return hash;}
+	public void setHash(String hash) {this.hash = hash;}
+	
+	public String getNazione() {return nazione;}
+	public void setNazione(String nazione) {this.nazione = nazione;}
+	
+	public String getRegione() {return regione;}
+	public void setRegione(String regione) {this.regione = regione;}
+	
+	public String getProvincia() {return provincia;}
+	public void setProvincia(String provincia) {this.provincia = provincia;}
+	
+	public String getComune() {return comune;}
+	public void setComune(String comune) {this.comune = comune;}
+	
+	public String getVia() {return via;}
+	public void setVia(String via) {this.via = via;}
+	
+	public String getNumCiv() {return numCiv;}
+	public void setNumCiv(String numCiv) {this.numCiv = numCiv;}
+	
+
+}
