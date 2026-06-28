@@ -14,7 +14,7 @@ CREATE TABLE utenteRegistrato(
     cognome VARCHAR(50)NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL, 
     email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(350) NOT NULL, -- AUMENTATO LUNGHEZZA PER L'HASH
+    password_hash CHAR(128) NOT NULL, -- AUMENTATO LUNGHEZZA PER L'HASH
     bio VARCHAR(500),
     nazione VARCHAR(100) NOT NULL, 
     regione VARCHAR(100) NOT NULL,
@@ -81,4 +81,4 @@ CREATE TABLE carrello (
 );
 
 
-
+select * from utenteRegistrato;
