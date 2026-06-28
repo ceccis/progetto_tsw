@@ -1,5 +1,5 @@
- DROP DATABASE sitotsw;
- CREATE SCHEMA sitotsw;
+-- DROP DATABASE sitotsw;
+-- CREATE SCHEMA sitotsw;
 USE sitotsw;
 
 -- creazione tabelle entitá
@@ -10,12 +10,11 @@ USE sitotsw;
 CREATE TABLE utenteRegistrato( 
 	id_utente INT AUTO_INCREMENT PRIMARY KEY,
     ruolo VARCHAR(20) NOT NULL DEFAULT 'utente', -- AGGIUNTA ATTRIBUTO RUOLO CON VALORE DEFAULT UTENTE
-   disponibilita BOOLEAN DEFAULT TRUE, -- AGGIUNTA ATTRIBUTO DISPONIBILITA se un libro viene comprato disponibilita = false
-   nome VARCHAR(50) NOT NULL, 
+    nome VARCHAR(50) NOT NULL, 
     cognome VARCHAR(50)NOT NULL,
     username VARCHAR(50) UNIQUE NOT NULL, 
     email VARCHAR(100) UNIQUE NOT NULL,
-    password_hash VARCHAR(100) NOT NULL, -- qui ci andrá l'hash della psw 
+    password_hash VARCHAR(350) NOT NULL, -- AUMENTATO LUNGHEZZA PER L'HASH
     bio VARCHAR(500),
     nazione VARCHAR(100) NOT NULL, 
     regione VARCHAR(100) NOT NULL,
@@ -29,6 +28,7 @@ CREATE TABLE utenteRegistrato(
 CREATE TABLE libro (
 	id_libro INT AUTO_INCREMENT PRIMARY KEY,
     id_venditore INT NOT NULL,
+    disponibilita BOOLEAN DEFAULT TRUE, -- AGGIUNTA ATTRIBUTO DISPONIBILITA se un libro viene comprato disponibilita = false
     ISBN VARCHAR(50) NOT NULL,
     nome VARCHAR(100) NOT NULL,
     autore VARCHAR(50) NOT NULL,
