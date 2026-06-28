@@ -1,6 +1,11 @@
 package controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.sql.SQLException;
+
+import model.bean.Utente;
+import model.dao.UtenteDAO;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,6 +26,35 @@ public class Registrazione extends HttpServlet {
         super();
         // TODO Auto-generated constructor stub
     }
+    
+    //metodo per hashare la password
+	private String toHash (String password){
+		String hashString = null;
+		try {
+			java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
+			byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+			hashString = "";
+			
+			for(int i = 0; i<hash.length; i++) {
+				hashString += Integer.toHexString(hash[i] & 0xFF | 0x100).substring(1,3);		
+				}
+			
+			} catch (java.security.NoSuchAlgorithmException e) {
+			System.out.println(e);
+			
+			}
+		
+		return hashString;
+		
+	}
+	
+	
+	
+	//metodo per controllare se un parametro e' null oppure vuoto
+	private boolean isEmpty(String s) {
+	    return s == null || s.trim().isEmpty();
+	}
+
 
 	/**
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
@@ -35,8 +69,62 @@ public class Registrazione extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		doGet(request, response);
+        
+        // recupero i parametri dal form HTML
+        String nome = request.getParameter("nome");
+        String cognome = request.getParameter("cognome");
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        String username = request.getParameter("username");
+        String bio = request.getParameter("bio");
+        String nazione = request.getParameter("nazione");
+        String regione = request.getParameter("regione");
+        String provincia = request.getParameter("provincia");
+        String comune = request.getParameter("comune");
+        String via = request.getParameter("via");
+        String numCiv = request.getParameter("numCiv");
+
+        
+        //controllo che nessun campo sia vuoto
+        if ( isEmpty(nome) || isEmpty(email) || isEmpty(cognome) || isEmpty(password) || isEmpty(username) 
+           || isEmpty(bio) || isEmpty(nazione) || isEmpty(regione) || isEmpty(provincia) || isEmpty(comune)
+           || isEmpty(via) || isEmpty(numCiv)) {
+        	
+        	request.setAttribute("errore", "Compila tutti i campi");
+        	request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request, response);
+        	return;
+            
+        	} else {
+        		UtenteDAO dao = new UtenteDAO();
+            	Utente u = new Utente();
+            	
+            	u.setNome(nome);
+            	u.setEmail(email);
+            	String hash = toHash(password);
+            	u.setHash(hash);
+            	u.setCognome(cognome);
+            	u.setUsername(username);
+            	u.setBio(bio);
+            	u.setNazione(nazione);
+            	u.setRegione(regione);
+            	u.setProvincia(provincia);
+            	u.setComune(comune);
+            	u.setVia(via);
+            	u.setNumCiv(numCiv);
+            	u.setRuolo("utente");
+
+            	
+            	try {
+    				dao.doSave(u);
+    			} catch (SQLException e) {
+    				e.printStackTrace();
+    			}
+            	
+            	request.setAttribute("successo", "Registrazione completata!");
+                response.sendRedirect("Login");
+        	
+        	}
+    	}
 	}
 
-}
+
