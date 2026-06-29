@@ -34,7 +34,8 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 				u.setUsername(rs.getString("username"));
 				u.setEmail(rs.getString("email"));
 				u.setBio(rs.getString("bio"));
-				u.setNazione(rs.getString("nazione"));//aggiunta indirizzo in questo metodo
+				u.setMetodoPagamento(rs.getString("metodo_pagamento"));//aggiunta metodo pagamento
+				u.setNazione(rs.getString("nazione"));
 				u.setRegione(rs.getString("regione"));
 				u.setProvincia(rs.getString("provincia"));
 				u.setComune(rs.getString("comune"));
@@ -57,7 +58,7 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 //metodo per recuperare un utente tramite username e password (per login)
 	public Utente doRetrieveByUsernameAndPsw(String usernameInserito, String pswHash) { 
 		
-		String sql = "SELECT id_utente, nome, cognome, ruolo, username, email, bio, nazione, regione, provincia, comune, via, numCiv FROM utenteRegistrato WHERE username = ? AND password_hash = ?";
+		String sql = "SELECT id_utente, nome, cognome, ruolo, username, email, bio, metodo_pagamento, nazione, regione, provincia, comune, via, numCiv FROM utenteRegistrato WHERE username = ? AND password_hash = ?";
 		
 		try(Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql)){
@@ -76,6 +77,7 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 			u.setUsername(rs.getString("username"));
 			u.setEmail(rs.getString("email"));
 			u.setBio(rs.getString("bio"));
+			u.setMetodoPagamento(rs.getString("metodo_pagamento"));
 			u.setNazione(rs.getString("nazione"));
 			u.setRegione(rs.getString("regione"));
 			u.setProvincia(rs.getString("provincia"));
@@ -119,7 +121,8 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 				u.setCognome(rs.getString("cognome"));
 				u.setUsername(rs.getString("username"));
 				u.setEmail(rs.getString("email"));
-				u.setBio(rs.getString("bio")); //aggiunta indirizzo in questo metodo
+				u.setBio(rs.getString("bio"));
+				u.setMetodoPagamento(rs.getString("metodo_pagamento"));
 				u.setNazione(rs.getString("nazione"));
 				u.setRegione(rs.getString("regione"));
 				u.setProvincia(rs.getString("provincia"));
@@ -147,8 +150,8 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 	@Override
 	public void doSave(Utente u) throws SQLException {
 		
-		String sql = "INSERT INTO utenteRegistrato(nome, ruolo, cognome, username, email, bio, password_hash, nazione, regione, provincia, comune, via, numCiv)"
-				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+		String sql = "INSERT INTO utenteRegistrato(nome, ruolo, cognome, username, email, bio, password_hash, metodo_pagamento, nazione, regione, provincia, comune, via, numCiv)"
+				+ "VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 		
 		
 		try(Connection con = ConnectionPool.getConnection();
@@ -161,12 +164,13 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 			ps.setString(5, u.getEmail());
 			ps.setString(6, u.getBio());
 			ps.setString(7, u.getHash());
-			ps.setString(8, u.getNazione());
-			ps.setString(9, u.getRegione());
-			ps.setString(10, u.getProvincia());
-			ps.setString(11, u.getComune());
-			ps.setString(12, u.getVia());
-			ps.setString(13, u.getNumCiv());
+			ps.setString(8, u.getMetodoPagamento());
+			ps.setString(9, u.getNazione());
+			ps.setString(10, u.getRegione());
+			ps.setString(11, u.getProvincia());
+			ps.setString(12, u.getComune());
+			ps.setString(13, u.getVia());
+			ps.setString(14, u.getNumCiv());
 			
 			ps.executeUpdate();
 			
@@ -183,7 +187,7 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 	@Override
 	public void doUpdate(Utente u) throws SQLException {
 		
-		String sql = "UPDATE utenteRegistrato SET nome = ?, ruolo = ?, cognome = ?, username = ?, email = ?, bio = ?, password_hash = ?, nazione = ?, regione = ?, provincia = ?, comune = ?, via = ?, numCiv = ? WHERE id_utente = ? ";
+		String sql = "UPDATE utenteRegistrato SET nome = ?, ruolo = ?, cognome = ?, username = ?, email = ?, bio = ?, password_hash = ?, metodo_pagamento = ?, nazione = ?, regione = ?, provincia = ?, comune = ?, via = ?, numCiv = ? WHERE id_utente = ? ";
 		
 		try(Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql)){
@@ -195,13 +199,14 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 			ps.setString(5, u.getEmail());
 			ps.setString(6, u.getBio());
 			ps.setString(7, u.getHash());
-			ps.setString(8, u.getNazione());
-			ps.setString(9, u.getRegione());
-			ps.setString(10, u.getProvincia());
-			ps.setString(11, u.getComune());
-			ps.setString(12, u.getVia());
-			ps.setString(13, u.getNumCiv());
-			ps.setInt(14, u.getId());
+			ps.setString(8, u.getMetodoPagamento());
+			ps.setString(9, u.getNazione());
+			ps.setString(10, u.getRegione());
+			ps.setString(11, u.getProvincia());
+			ps.setString(12, u.getComune());
+			ps.setString(13, u.getVia());
+			ps.setString(14, u.getNumCiv());
+			ps.setInt(15, u.getId());
 			
 			ps.executeUpdate();	
 			

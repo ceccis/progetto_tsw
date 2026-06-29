@@ -9,8 +9,9 @@ public class Utente{
 	private String username;
 	private String email;
 	private String bio;
-	private String hash; //aggiunta hash della password
-	private String nazione; // aggiunta indirizzo
+	private String hash; 
+	private String metodoPagamento; //aggiunta metodo di pagamento 
+	private String nazione; 
 	private String regione;
 	private String provincia;
 	private String comune;
@@ -19,7 +20,7 @@ public class Utente{
 	
 	public Utente() {}
 	
-	public Utente(int id, String nome, String ruolo, String cognome, String username, String email, String bio, String hash, String nazione, String regione, String provincia, String comune, String via, String numCiv) {
+	public Utente(int id, String nome, String ruolo, String cognome, String username, String email, String bio, String hash,String metodoPagamento, String nazione, String regione, String provincia, String comune, String via, String numCiv) {
 		this.id = id;
 		this.nome=nome;
 		this.ruolo = ruolo;
@@ -28,6 +29,7 @@ public class Utente{
 		this.email=email;
 		this.bio=bio;
 		this.hash = hash;
+		this.metodoPagamento = metodoPagamento;
 		this.nazione = nazione;
 		this.regione = regione;
 		this.provincia = provincia;
@@ -61,6 +63,9 @@ public class Utente{
 	
 	public String getHash() {return hash;}
 	public void setHash(String hash) {this.hash = hash;}
+	
+	public String getMetodoPagamento() {return metodoPagamento;}
+	public void setMetodoPagamento(String metodoPagamento) {this.metodoPagamento = metodoPagamento;}
 	
 	public String getNazione() {return nazione;}
 	public void setNazione(String nazione) {this.nazione = nazione;}
