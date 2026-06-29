@@ -43,16 +43,16 @@ public class CarrelloDAO {
 	}
 	
 //metodo per inserire un prodotto nel carrello	
-	public void aggiungiAlCarrello(Carrello c, int idUtente) throws SQLException {
+	public void aggiungiAlCarrello(int idLibro, int idUtente) throws SQLException {
 
 		String sql = "INSERT INTO carrello(id_utente, id_libro) VALUES(?,?) ";
 		
 		try(Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql)){
 			
-			//l'id dell'utente lo prendiamo dalla sessione nella servlet
+			
 			ps.setInt(1, idUtente);
-			ps.setInt(2, c.getIdLibro());
+			ps.setInt(2, idLibro);
 			ps.executeUpdate();
 			
 			
