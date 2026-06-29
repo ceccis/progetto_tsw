@@ -77,6 +77,7 @@ public class Registrazione extends HttpServlet {
         String password = request.getParameter("password");
         String username = request.getParameter("username");
         String bio = request.getParameter("bio");
+        //aggiungere metodo di pagamento
         String nazione = request.getParameter("nazione");
         String regione = request.getParameter("regione");
         String provincia = request.getParameter("provincia");
@@ -105,6 +106,7 @@ public class Registrazione extends HttpServlet {
             	u.setCognome(cognome);
             	u.setUsername(username);
             	u.setBio(bio);
+            	//aggiungere metodo di pagamento
             	u.setNazione(nazione);
             	u.setRegione(regione);
             	u.setProvincia(provincia);

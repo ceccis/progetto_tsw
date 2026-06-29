@@ -2,28 +2,26 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-
-import model.bean.Prodotto;
-import model.dao.ProdottoDAO;
+import javax.servlet.http.HttpSession;
+import model.dao.CarrelloDAO;
 
 /**
- * Servlet implementation class Catalogo
+ * Servlet implementation class RimuoviProdottoCarrello
  */
-@WebServlet("/Catalogo")
-public class Catalogo extends HttpServlet {
+@WebServlet("/RimuoviProdottoCarrello")
+public class RimuoviProdottoCarrello extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Catalogo() {
+    public RimuoviProdottoCarrello() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -32,18 +30,27 @@ public class Catalogo extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		
-		ProdottoDAO dao = new ProdottoDAO();
-		List<Prodotto> listaProdotti = null;
-		try {
-			listaProdotti = dao.doRetrieveAll();
-		} catch (SQLException e) {
-			e.printStackTrace();
-			request.setAttribute("errore", "Errore nel caricamento del catalogo");
+		HttpSession session = request.getSession(false);
+		if(session == null || session.getAttribute("utente")==null) {
+			//redirect alla pagina di login se l'utente non e' autenticato
+			response.sendRedirect("Login");
+			return;
 		}
-		request.setAttribute("prodotti", listaProdotti);
-		request.getRequestDispatcher("/WEB-INF/views/catalogo.jsp").forward(request,  response);;
+		//recupero l'id del libro da un parametro hidden nel form
+		int idLibro = Integer.parseInt(request.getParameter("idLibro"));
+		//recupero l'id dell'utente dalla sessione
+		int idUtente = (int) session.getAttribute("idUtente");
+				
+		CarrelloDAO dao = new CarrelloDAO();
+		try {
+			dao.togliProdottoCarrello(idUtente, idLibro);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
 	}
+
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
