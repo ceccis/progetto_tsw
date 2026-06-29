@@ -1,5 +1,5 @@
 -- DROP DATABASE sitotsw;
--- CREATE SCHEMA sitotsw;
+ CREATE SCHEMA sitotsw;
 USE sitotsw;
 
 -- creazione tabelle entitá
@@ -16,6 +16,7 @@ CREATE TABLE utenteRegistrato(
     email VARCHAR(100) UNIQUE NOT NULL,
     password_hash CHAR(128) NOT NULL, -- AUMENTATO LUNGHEZZA PER L'HASH
     bio VARCHAR(500),
+    metodo_pagamento VARCHAR (150) CHECK (metodo_pagamento IN ('Carta di credito', 'PayPal', 'ApplePay', 'Contrassegno')), -- AGGIUNTA METODO PAGAMENTO
     nazione VARCHAR(100) NOT NULL, 
     regione VARCHAR(100) NOT NULL,
     provincia VARCHAR(100) NOT NULL,
@@ -81,4 +82,4 @@ CREATE TABLE carrello (
 );
 
 
-select * from utenteRegistrato;
+
