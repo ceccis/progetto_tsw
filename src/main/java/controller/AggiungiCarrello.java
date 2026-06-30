@@ -2,15 +2,12 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
-import model.bean.Carrello;
 import model.dao.CarrelloDAO;
 
 /**
@@ -44,18 +41,10 @@ public class AggiungiCarrello extends HttpServlet {
 		//recupero l'id dell'utente dalla sessione
 		int idUtente = (int) session.getAttribute("idUtente");
 		
-		
-		//TODO modificare metodo aggiungiAlCarrello(Carrello c, int idUtente) in aggiungiAlCarrello(int idLibro, int idUtente) 
-		//di conseguenza modificare il codice qui sotto
-		
-		//con il metodo dao attuale creo un nuovo bean carrello per metterci dentro l'id del libro, dopo la modifica non si fara' cosi
-		Carrello c = new Carrello();
-		c.setIdLibro(idLibro);
-		
 		CarrelloDAO dao = new CarrelloDAO();
+		
 		try {
-			//qui dovra' essere dao.aggiungiAlCarrello(idLibro, idUtente);
-			dao.aggiungiAlCarrello(c, idUtente);
+			dao.aggiungiAlCarrello(idLibro, idUtente);
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
