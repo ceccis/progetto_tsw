@@ -11,6 +11,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
  * Servlet implementation class Registrazione
@@ -61,7 +62,7 @@ public class Registrazione extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request,  response);;
+		
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 	}
 
@@ -77,14 +78,29 @@ public class Registrazione extends HttpServlet {
         String password = request.getParameter("password");
         String username = request.getParameter("username");
         String bio = request.getParameter("bio");
-        //aggiungere metodo di pagamento
+        String metodoPagamento = request.getParameter("metodoPagamento");
         String nazione = request.getParameter("nazione");
         String regione = request.getParameter("regione");
         String provincia = request.getParameter("provincia");
         String comune = request.getParameter("comune");
         String via = request.getParameter("via");
         String numCiv = request.getParameter("numCiv");
-
+        
+        //regex per i campi "letterali" = nome, cognome e indirizzo
+        //controlla il campo dall'inizio alla fine e permette solo lettere (accentate e non) e spazi bianchi
+        String regexLett = "^[a-zA-ZÀ-ÿ\\s]{2,50}$";
+ 
+        //regex per il campo "password" = controlla che la password sia almeno di 8 caratteri, con almeno una lettera maiuscola e una minuscola, un numero e un carattere speciale fra @$!%*?&
+        String regexPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        
+        //regex per "email" = controlla che la stringa contenga esattamente una chiocciola e un punto escludendo spazi vuoti
+        String regexEmail = "^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$";
+        
+        //regex per i campi "numerici" = numero civico
+        //controlla il campo dall'inizio alla fine permettendo da 1 a 4 cifre
+        String regexNum = "^\\d{1,4}$";
+        
+       
         
         //controllo che nessun campo sia vuoto
         if ( isEmpty(nome) || isEmpty(email) || isEmpty(cognome) || isEmpty(password) || isEmpty(username) 
@@ -99,6 +115,33 @@ public class Registrazione extends HttpServlet {
         		UtenteDAO dao = new UtenteDAO();
             	Utente u = new Utente();
             	
+            	if (!nome.matches(regexLett) || !cognome.matches(regexLett)|| !nazione.matches(regexLett) 
+            		|| !regione.matches(regexLett)|| !provincia.matches(regexLett) 
+            		|| !comune.matches(regexLett) || !via.matches(regexLett)) {
+            	    request.setAttribute("errore", "Inserire solo lettere nei campi: nome, cognome, nazione, regione, provincia, comune e via");
+            	    request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request, response);
+            	    return;
+            	} 
+            	
+            	if (!password.matches(regexPassword)) {
+            	    request.setAttribute("errore", "Password non valida: inserire almeno 8 caratteri, una lettera minuscola, una maiuscola e un carattele speciale fra @ $ ! % * ? & ");
+            	    request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request, response);
+            	    return;
+            	}
+            	
+            	if (!numCiv.matches(regexNum)) {
+            	    request.setAttribute("errore", "Inserire da 1 a 4 cifre nel campo numero civico ");
+            	    request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request, response);
+            	    return;
+            	}
+            	
+            	if (!email.matches(regexEmail)) {
+            	    request.setAttribute("errore", "Email non valida: inserire la chiocciola e un punto, senza spazi vuoti");
+            	    request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request, response);
+            	    return;
+            	}
+            	
+            	
             	u.setNome(nome);
             	u.setEmail(email);
             	String hash = toHash(password);
@@ -106,7 +149,7 @@ public class Registrazione extends HttpServlet {
             	u.setCognome(cognome);
             	u.setUsername(username);
             	u.setBio(bio);
-            	//aggiungere metodo di pagamento
+            	u.setMetodoPagamento(metodoPagamento);
             	u.setNazione(nazione);
             	u.setRegione(regione);
             	u.setProvincia(provincia);
@@ -122,8 +165,10 @@ public class Registrazione extends HttpServlet {
     				e.printStackTrace();
     			}
             	
-            	request.setAttribute("successo", "Registrazione completata!");
-                response.sendRedirect("Login");
+            	HttpSession session = request.getSession();
+            	session.setAttribute("successo", "Registrazione completata!");
+            	response.sendRedirect("Login");
+
         	
         	}
     	}
