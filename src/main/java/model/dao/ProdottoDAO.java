@@ -156,11 +156,13 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 		
 	}
 	
+	//MODIFICA: AGGIUNTO DUE METODI
+	//retrieveVenditeAttive = per mostrare i libri messi in vendita da un utente non ancora acquistati da un altro utente (vendite attive)
+	//retrieveVenditeFinalizzate = per mostrare i libri messi in vendita da un utente che sono stati acquistati (vendite finalizzate)
 	
-	//metodo per restituire i libri messi in vendita da un venditore specifico
-	public List<Prodotto> doRetrieveByVenditore(int idVenditore) throws SQLException {
+public List<Prodotto> retrieveVenditeAttive(int idVenditore) throws SQLException {
 	    
-	    String sql = "SELECT * FROM libro WHERE id_venditore = ?";
+	    String sql = "SELECT * FROM libro WHERE id_venditore = ? AND disponibilita = TRUE";
 	    List<Prodotto> prodotti = new ArrayList<>();
 
 	    try (Connection con = ConnectionPool.getConnection();
@@ -193,6 +195,39 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	}
 
 
+public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLException {
+    String sql = "SELECT * FROM libro WHERE id_venditore = ? AND disponibilita = FALSE";
+    List<Prodotto> prodotti = new ArrayList<>();
+
+    try (Connection con = ConnectionPool.getConnection();
+         PreparedStatement ps = con.prepareStatement(sql)) {
+
+        ps.setInt(1, idVenditore);
+        ResultSet rs = ps.executeQuery();
+
+        while (rs.next()) {
+            Prodotto p = new Prodotto();
+            p.setId(rs.getInt("id_libro"));
+            p.setTitolo(rs.getString("nome"));
+            p.setPrezzo(rs.getDouble("prezzo"));
+            p.setFoto(rs.getBytes("foto"));
+            p.setISBN(rs.getString("ISBN"));
+            p.setAutore(rs.getString("autore"));
+            p.setGenere(rs.getString("genere"));
+            p.setDescrizione(rs.getString("descrizione"));
+            p.setData(rs.getDate("data_pubblicazione").toLocalDate());
+            p.setIdVenditore(rs.getInt("id_venditore"));
+            p.setDisponibilita(rs.getBoolean("disponibilita"));
+
+            prodotti.add(p);
+        }
+    } catch (Exception e) {
+    	e.printStackTrace();
+    }
+
+    return prodotti;
+}
+	
 	
 //metodo per aggiungere un prodotto 
 	@Override
