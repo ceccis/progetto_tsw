@@ -2,7 +2,6 @@ package controller;
 
 import java.io.IOException;
 import java.sql.SQLException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,21 +9,21 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
 import model.bean.Prodotto;
-import model.bean.Utente;
 import model.dao.ProdottoDAO;
 
 /**
- * Servlet implementation class Vendite
+ * Servlet implementation class DettaglioProdotto
  */
-@WebServlet("/Vendite")
-public class Vendite extends HttpServlet {
+@WebServlet("/DettaglioProdotto")
+public class DettaglioProdotto extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Vendite() {
+    public DettaglioProdotto() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -34,28 +33,28 @@ public class Vendite extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
-
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect("Login");
-            return;
-        }
-		
-        Utente u = new Utente();
-        u = (Utente) session.getAttribute("utente");
-        int idUtente = u.getId();
-		ProdottoDAO dao = new ProdottoDAO();
-		List<Prodotto> listaAcquisti = null;
-		try {
-			
-			listaAcquisti = dao.doRetrieveByVenditore(idUtente);
-		} catch (SQLException e) {
-			e.printStackTrace();
-			request.setAttribute("errore", "Errore nel caricamento delle vendite");
+		if(session == null || session.getAttribute("utente")==null) {
+			//redirect alla pagina di login se l'utente non e' autenticato
+			response.sendRedirect("Login");
+			return;
 		}
-		request.setAttribute("vendite", listaAcquisti);
-		request.getRequestDispatcher("/WEB-INF/views/vendite.jsp").forward(request,  response);;
+		//recupero l'id del libro da un parametro hidden nel form
+		int idLibro = Integer.parseInt(request.getParameter("idLibro"));
+		
+		ProdottoDAO dao = new ProdottoDAO();
+		Prodotto libro = new Prodotto();
+		
+		try {
+		  libro = dao.doRetrieveByKey(idLibro);
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("libro", libro);
+		request.getRequestDispatcher("/WEB-INF/views/dettaglio.jsp").forward(request,  response);
+				
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

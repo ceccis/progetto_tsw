@@ -36,13 +36,14 @@ public class Catalogo extends HttpServlet {
 		ProdottoDAO dao = new ProdottoDAO();
 		List<Prodotto> listaProdotti = null;
 		try {
-			listaProdotti = dao.doRetrieveAll();
+			//MODIFICA CON METODO doRetrieveAllAvailable per mostrare solo i libri disponibili
+			listaProdotti = dao.doRetrieveAllAvailable();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errore", "Errore nel caricamento del catalogo");
 		}
 		request.setAttribute("prodotti", listaProdotti);
-		request.getRequestDispatcher("/WEB-INF/views/catalogo.jsp").forward(request,  response);;
+		request.getRequestDispatcher("/WEB-INF/views/catalogo.jsp").forward(request,  response);
 	}
 
 	/**
