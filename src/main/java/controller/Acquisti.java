@@ -54,7 +54,7 @@ public class Acquisti extends HttpServlet {
 			request.setAttribute("errore", "Errore nel caricamento degli acquisti");
 		}
 		request.setAttribute("acquisti", listaAcquisti);
-		request.getRequestDispatcher("/WEB-INF/views/acquisti.jsp").forward(request,  response);;
+		request.getRequestDispatcher("/WEB-INF/views/acquisti.jsp").forward(request,  response);
 	}
 
 	/**
