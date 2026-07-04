@@ -45,8 +45,7 @@ public class PaginaUtente extends HttpServlet {
 				String username= u.getUsername();
 				String email = u.getEmail();
 				String bio = u.getBio();
-				//aggiungere il metodo di pagamento
-				//String metodoPagamento = u.getMetodoPagamento;
+				String metodoPagamento = u.getMetodoPagamento();
 				String indirizzo = 
 						u.getNazione() + ", " +
 				 		u.getRegione() + ", " +
@@ -62,7 +61,7 @@ public class PaginaUtente extends HttpServlet {
 				request.setAttribute("username", username);
 				request.setAttribute("email", email);
 				request.setAttribute("bio", bio);
-				//aggiungere il metodo di pagamento
+				request.setAttribute("metodoPagamento", metodoPagamento);
 				request.setAttribute("indirizzo", indirizzo);
 				request.getRequestDispatcher("/WEB-INF/views/profilo.jsp").forward(request,  response);
 	}
