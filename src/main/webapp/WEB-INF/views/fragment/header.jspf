@@ -1,10 +1,37 @@
-
 <header class= "header" id= "header">
 	<h1 class="titolo-main"> NextChapter </h1>
 	
-<%-- barra di ricerca con ajax DA FARE--%>	
-	
-	
+<div class="search-container">
+	<input type = "text" id="searchBar" placeholder="Cerca un libro..." autocomplete="off" onkeyup="ricercaLibro">
+	<button type = "button" id="searchBtn" onclick="ricercaLibro()"> Cerca </button>
+</div>
+<div id="risultatiRicerca"></div>	
+
+<script>
+	function ricercaLibro () {
+		var text = document.geElementById("searchBar").value;
+		var results = document.getElementById("risultatiRicerca");
+		
+		if (text.length === 0){
+			results.innerHTML = "";     /*se la ricerca viene cancellata, inner inserisce "" al suo posto*/
+			return;     /*esce dalla funziona*/
+		}
+		
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function () {
+			if (this.readyState == 4 && this.status == 200) {
+					results.innerHTML = this.responseText;
+				} else {
+					results.innerHTML = "<p> la ricerca non ha prodotto risultati </p>";
+				}
+			}
+		}
+		
+	xhr.open ("GET", "RicercaServlet?query=" + encodeURIComponent(text), true);
+	xhr.send();
+		
+</script>
+		
 <%-- controllo per vedere se l'utente é loggato o meno con scriptlet DA MODIFICARE CON JSTL --%>
 
 <%
