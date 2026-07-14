@@ -236,4 +236,24 @@ public class UtenteDAO implements InterfacciaDAO<Utente, Integer>{
 
 	}
 
+
+
+//metodo per controllare se la mail è già presente nel db
+	//@Override
+	public boolean doCheckEmail(String email) throws Exception {    //ho messo exception poichè mi dava errore, l'ha suggerito quindi dobbiamo capire un attimo
+		String sql = "SELECT id_utente FROM utenteRegistrato WHERE email = ?";
+		
+		try(Connection con = ConnectionPool.getConnection();
+			PreparedStatement ps = con.prepareStatement(sql)){
+			
+			ps.setString(1, email);
+			ResultSet rs = ps.executeQuery();
+			
+			if(rs.next()) {
+				return true;
+			}
+		}	
+		return false;		//controllare per il catch, essendo booleano non penso ci sia bisogno
+	}
+	
 }
