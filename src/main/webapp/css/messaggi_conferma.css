@@ -1,0 +1,33 @@
+@charset "UTF-8";
+
+.successo {
+	 background-color: rgba(34, 139, 34, 0.5);
+	 color: darkGreen;
+	 border: 1px solid darkGreen;
+	 padding: 10 px;
+	 border-radius: 5px;
+	 display: flex;
+	 font-weight: bold;	 
+}
+
+.errore {
+	 background-color: rgba(178 ,34 ,34 0.5);
+	 color: maroon;
+	 border: 1px solid maroon;
+	 padding: 10 px;
+	 border-radius: 5px;
+	 display: flex;
+	 font-weight: bold;	 
+}
+
+.chiusura {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.chiusura:hover {
+    color: #0b3014;
+}
