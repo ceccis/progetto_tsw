@@ -9,16 +9,15 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-
 import model.bean.Prodotto;
-import model.bean.Utente;
 import model.dao.ProdottoDAO;
 
 /**
  * Servlet implementation class AdminVisualizzaCatalogo
  */
-@WebServlet("/AdminVisualizzaCatalogo")
+
+//cambiato annotazione mettendo Admin prima cosi' il filtro sa se questa servlet e' protetta
+@WebServlet("/Admin/AdminVisualizzaCatalogo")
 public class AdminVisualizzaCatalogo extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -35,25 +34,18 @@ public class AdminVisualizzaCatalogo extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession(false);
-		Utente u = (Utente) session.getAttribute("utente");
-		if(session == null || u==null || !u.getRuolo().equals("admin")) {
-			//redirect alla pagina di login se l'admin non e' autenticato
-			response.sendRedirect("Login");
-			return;
-		}
-		
+		//tolto il controllo per vedere se l'utente e' loggato e admin perche' poi faro' un filtro che gestisce questa cosa
 		ProdottoDAO dao = new ProdottoDAO();
 		List<Prodotto> listaProdotti = null;
 		try {
-			
+			//MODIFICA CON METODO doRetrieveAllAvailable per mostrare solo i libri disponibili
 			listaProdotti = dao.doRetrieveAllAvailable();
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errore", "Errore nel caricamento del catalogo");
 		}
 		request.setAttribute("prodotti", listaProdotti);
-		request.getRequestDispatcher("/WEB-INF/views/admin/catalogoAdmin.jsp").forward(request,  response);
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminIndex.jsp").forward(request, response);
 	}
 
 	/**

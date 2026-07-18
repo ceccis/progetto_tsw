@@ -94,12 +94,16 @@ public class Login extends HttpServlet {
 			
 			if(u.getRuolo().equals("admin")) {
 				request.getSession().setAttribute("isAdmin", Boolean.TRUE);
-				response.sendRedirect("Admin");
+				response.sendRedirect(request.getContextPath() + "/Admin/AdminVisualizzaCatalogo");
+
 				return;
 				}
 			
-			session.setAttribute("successo", "Login effettuato con successo!");
-			response.sendRedirect("index.jsp");
+			request.setAttribute("successo", "Login effettuato con successo!");
+		    request.getRequestDispatcher("/Catalogo").forward(request, response);
+		    //faccio redirect alla servlet Catalogo per far in modo che la servlet possa prendere i prodotti dal database e mostrarli
+			// poi la servlet stessa fara' il redirect alla pagina index. se adesso facessi il redirect direttamente alla pagina index.jsp 
+			//la servlet catalogo non verrebbe mai chiamata e quindi non verrebbero mai mostrati i prodotti
 			return;	
 			
 		} else {

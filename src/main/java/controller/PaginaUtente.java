@@ -29,11 +29,10 @@ public class PaginaUtente extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		//recupero la sessione esistente, se non esiste NON ne crea una nuova e restituisce null
 				HttpSession session = request.getSession(false);
-				if(session == null || session.getAttribute("utente")==null) {
-					//redirect alla pagina di login se l'utente non e' autenticato
-					response.sendRedirect("Login");
-					return;
-				}
+				
+				
+			//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+				
 				
 			//se l'utente e' autenticato recupero i dati per mostrarli nella sua pagina personale
 				

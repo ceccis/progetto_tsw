@@ -25,10 +25,8 @@ public class ModificaProfilo extends HttpServlet {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect("Login");
-            return;
-        }
+    	//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+		
 
         Utente u = (Utente) session.getAttribute("utente");
 

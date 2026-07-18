@@ -37,8 +37,11 @@
     	<error-code> 403</error-code>
     	<location>/errori/NoPermessi.jsp </location>
     </error-page>
-   
-   
-   
+ 
+ 
+   <!-- questa cosa serve per avviare la servlet catalogo all'inizio come prima cosa. cosi facendo la servlet prende tutti i prodotti registrati e li mostra nella pagina home-->
+   <welcome-file-list>
+   	<welcome-file> Catalogo </welcome-file>
+   </welcome-file-list>
    
 </web-app>

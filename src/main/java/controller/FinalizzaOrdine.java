@@ -51,11 +51,7 @@ public class FinalizzaOrdine extends HttpServlet {
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
 		HttpSession session = request.getSession(false);
-		if(session == null || session.getAttribute("utente")==null) {
-			//redirect alla pagina di login se l'utente non e' autenticato
-			response.sendRedirect("Login");
-			return;
-		}
+		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
 		
 		//recupero utente dalla sessione
 		Utente u = (Utente) session.getAttribute("utente");
@@ -114,8 +110,7 @@ public class FinalizzaOrdine extends HttpServlet {
 			}
 			//TODO AGGIUNGERE PREZZO TOTALE A BEAN ACQUISTO E DATABASE
 		
-			// double prezzoTotale = prezzo + iva
-		
+			//double prezzoTotale = prezzo + iva;
 			acquisto.setIdAcquirente(idUtente);
 			acquisto.setIdLibro(idLibro);
 			acquisto.setIdVenditore(idVenditore);
@@ -123,6 +118,8 @@ public class FinalizzaOrdine extends HttpServlet {
 			acquisto.setIva(iva);
 			acquisto.setQuantita(1);
 			acquisto.setMetodoPagamento(metodoPagamento);
+			
+			//TODO 
 			//acquisto.setPrezzoTotale(prezzoTotale);
 		
 			try {
@@ -138,8 +135,8 @@ public class FinalizzaOrdine extends HttpServlet {
 		//svuoto il carrello
 		daoC.svuotaCarrello(idUtente);
 		
-		request.setAttribute("successo", "Ordine completato! puoi viusalizzarlo nella sezione \"I miei ordini\" del tuo profilo");
-		request.getRequestDispatcher("/WEB-INF/views/porfilo.jsp").forward(request, response);
+		 session.setAttribute("successo", "Acquisto effettuato correttamente!");
+		 response.sendRedirect("PaginaUtente");
 
 	}
 	

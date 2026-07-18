@@ -9,6 +9,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+
+import model.bean.Utente;
 import model.dao.CarrelloDAO;
 
 /**
@@ -30,16 +32,17 @@ public class RimuoviProdottoCarrello extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-		if(session == null || session.getAttribute("utente")==null) {
-			//redirect alla pagina di login se l'utente non e' autenticato
-			response.sendRedirect("Login");
-			return;
-		}
+		 HttpSession session = request.getSession(false);
+
+		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+			
+	    Utente u = (Utente) session.getAttribute("utente");
+	    
+	    
 		//recupero l'id del libro da un parametro hidden nel form
 		int idLibro = Integer.parseInt(request.getParameter("idLibro"));
 		//recupero l'id dell'utente dalla sessione
-		int idUtente = (int) session.getAttribute("idUtente");
+		int idUtente = u.getId();
 				
 		CarrelloDAO dao = new CarrelloDAO();
 		try {
@@ -48,6 +51,10 @@ public class RimuoviProdottoCarrello extends HttpServlet {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		request.setAttribute("successo", "Prodotto rimosso dal carrello");
+	    request.getRequestDispatcher("/VisualizzaCarrello").forward(request, response);
+	    //TODO servlet Carrello
 
 	}
 

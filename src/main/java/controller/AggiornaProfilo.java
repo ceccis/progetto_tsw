@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 
 import javax.servlet.ServletException;
@@ -21,23 +22,63 @@ public class AggiornaProfilo extends HttpServlet {
 	 */
 	private static final long serialVersionUID = 1L;
 
+	
+	//metodo per hashare la password
+		private String toHash (String password){
+			String hashString = null;
+			try {
+				java.security.MessageDigest digest = java.security.MessageDigest.getInstance("SHA-512");
+				byte[] hash = digest.digest(password.getBytes(StandardCharsets.UTF_8));
+				hashString = "";
+				
+				for(int i = 0; i<hash.length; i++) {
+					hashString += Integer.toHexString(hash[i] & 0xFF | 0x100).substring(1,3);		
+					}
+				
+				} catch (java.security.NoSuchAlgorithmException e) {
+				System.out.println(e);
+				
+				}
+			
+			return hashString;
+			
+		}
+
+		
+		
+		//metodo per controllare se un parametro e' null oppure vuoto
+		private boolean isEmpty(String s) {
+		    return s == null || s.trim().isEmpty();
+		}
+	
+	
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
         HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect("Login");
-            return;
-        }
+      //tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
 
         Utente u = (Utente) session.getAttribute("utente");
+        
+        //recupero la password attuale dell'utente dal database, se l'utente non aggiorna la sua password lascio questa, altrimenti metto la password aggiornata
+        UtenteDAO dao = new UtenteDAO();
+        Utente dbUser = null;
+		try {
+			dbUser = dao.doRetrieveByKey(u.getId());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        String passwordAttuale = dbUser.getHash();
+
 
         // recupero parametri dal form
         String nome = request.getParameter("nome");
         String cognome = request.getParameter("cognome");
         String username = request.getParameter("username");
         String email = request.getParameter("email");
+        String nuovaPassword = request.getParameter("nuovaPassword");
         String bio = request.getParameter("bio");
         String metodoPagamento = request.getParameter("metodoPagamento");
         String nazione = request.getParameter("nazione");
@@ -57,7 +98,12 @@ public class AggiornaProfilo extends HttpServlet {
         //regex per i campi "numerici" = numero civico
         //controlla il campo dall'inizio alla fine permettendo da 1 a 4 cifre
         String regexNum = "^\\d{1,4}$";
-
+        
+        
+        //regex per il campo "password" = controlla che la password sia almeno di 8 caratteri, con almeno una lettera maiuscola e una minuscola, un numero e un carattere speciale fra @$!%*?&
+        String regexPassword = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)(?=.*[@$!%*?&])[A-Za-z\\d@$!%*?&]{8,}$";
+        
+        
         //validazione dei campi
         if (!nome.matches(regexLett) || !cognome.matches(regexLett) ||
             !nazione.matches(regexLett) || !regione.matches(regexLett) ||
@@ -80,6 +126,27 @@ public class AggiornaProfilo extends HttpServlet {
             request.getRequestDispatcher("/WEB-INF/views/modificaProfilo.jsp").forward(request, response);
             return;
         }
+        
+        if (isEmpty(nuovaPassword)) {
+        	//se l'utente non vuole cambiare la password non la inserisce
+            // tieni quella già presente nel DB
+            u.setHash(passwordAttuale);
+            
+            //se la inserisce controllo se rispetta la regex
+        } else if (!nuovaPassword.matches(regexPassword)) {
+        	 request.setAttribute("errore", "Password non valida!");
+             request.getRequestDispatcher("/WEB-INF/views/modificaProfilo.jsp").forward(request, response);
+             return;
+             
+             // hasho la password e la setto
+        }else {
+        	
+        	String hash = toHash(nuovaPassword);
+        	u.setHash(hash);
+        	
+        }
+
+
 
         //aggiornamento bean
         u.setNome(nome);
@@ -95,8 +162,7 @@ public class AggiornaProfilo extends HttpServlet {
         u.setVia(via);
         u.setNumCiv(numCiv);
 
-        //aggiungo al db
-        UtenteDAO dao = new UtenteDAO();
+       
         try {
             dao.doUpdate(u);
         } catch (SQLException e) {

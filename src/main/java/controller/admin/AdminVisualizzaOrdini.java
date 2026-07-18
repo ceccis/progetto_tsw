@@ -8,16 +8,16 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import model.bean.Acquisto;
-import model.bean.Utente;
 import model.dao.AcquistoDAO;
 
 
 /**
  * Servlet implementation class Acquisti
  */
-@WebServlet("/AdminVisualizzaOrdini")
+
+//cambiato annotazione mettendo Admin prima cosi' il filtro sa se questa servlet e' protetta
+@WebServlet("/Admin/AdminVisualizzaOrdini")
 public class AdminVisualizzaOrdini extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
@@ -34,13 +34,7 @@ public class AdminVisualizzaOrdini extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		HttpSession session = request.getSession(false);
-		Utente u = (Utente) session.getAttribute("utente");
-		if(session == null || u==null || !u.getRuolo().equals("admin")) {
-			//redirect alla pagina di login se admin non e' autenticato
-			response.sendRedirect("Login");
-			return;
-		}
+		//tolto il controllo per vedere se l'utente e' loggato e admin perche' poi faro' un filtro che gestisce questa cosa
        
 		AcquistoDAO dao = new AcquistoDAO();
 		List<Acquisto> listaOrdini = null;
@@ -52,7 +46,7 @@ public class AdminVisualizzaOrdini extends HttpServlet {
 			request.setAttribute("errore", "Errore nel caricamento degli acquisti");
 		}
 		request.setAttribute("ordini", listaOrdini);
-		request.getRequestDispatcher("/WEB-INF/views/admin/ordiniAdmin.jsp").forward(request,  response);;
+		request.getRequestDispatcher("/WEB-INF/views/admin/ordiniAdmin.jsp").forward(request,  response);
 	}
 
 	/**

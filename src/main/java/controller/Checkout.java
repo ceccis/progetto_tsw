@@ -40,12 +40,9 @@ public class Checkout extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 				
 				HttpSession session = request.getSession(false);
-
-		        if (session == null || session.getAttribute("utente") == null) {
-		            response.sendRedirect("Login");
-		            return;
-		        }
-
+				
+				//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+				
 		        Utente u = (Utente) session.getAttribute("utente");
 		        int idUtente = u.getId();
 
@@ -76,7 +73,10 @@ public class Checkout extends HttpServlet {
 		            try {
 		                Prodotto p = daoP.doRetrieveByKey(c.getIdLibro());
 		                prodotti.add(p);
-		                totale += p.getPrezzo();
+		                //premdo il prezzo unitario di un libro e ci aggiungo l'iva al 22% e calcolo il totale
+		                double prezzoUnitario = p.getPrezzo();
+		                double prezzoConIva = (prezzoUnitario * 1.22);
+		                totale += prezzoConIva;
 		            } catch (SQLException e) {
 		                e.printStackTrace();
 		            }

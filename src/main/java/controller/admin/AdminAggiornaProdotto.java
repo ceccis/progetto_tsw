@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -15,9 +15,9 @@ import javax.servlet.http.Part;
 import model.bean.Prodotto;
 import model.dao.ProdottoDAO;
 
-@WebServlet("/AggiornaProdotto")
+@WebServlet("/Admin/AdminAggiornaProdotto")
 @MultipartConfig
-public class AggiornaProdotto extends HttpServlet {
+public class AdminAggiornaProdotto extends HttpServlet {
 
     private static final long serialVersionUID = 1L;
 
@@ -43,7 +43,7 @@ public class AggiornaProdotto extends HttpServlet {
        
         //regex per i campi "letterali"
         //controlla il campo dall'inizio alla fine e permette solo lettere (accentate e non) e spazi bianchi
-        String regexLett = "^[a-zA-ZÀ-ÿ\\s]{2,50}$";
+        //String regexLett = "^[a-zA-ZÀ-ÿ\\s]{2,50}$";
         
         //regex per la descrizione del libro, controlla che sia almeno di 5 caratteri e massimo di 500 (con spazi)
         String regexDescrizione = "^.{5,500}$";
@@ -58,27 +58,27 @@ public class AggiornaProdotto extends HttpServlet {
         
         //validazione
         
-        if (!titolo.matches(regexLett) || !autore.matches(regexLett) || !genere.matches(regexLett)) {
+        /*if (!titolo.matches(regexLett) || !autore.matches(regexLett) || !genere.matches(regexLett)) {
             request.setAttribute("errore", "Titolo, autore o genere non validi, sono permesse lettere (accentate o non), virgole, punti, apostrofi, trattini e numeri (da 5 a max 50 caratteri).");
-            request.getRequestDispatcher("/WEB-INF/views/modificaProdotto.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/adminModificaProdotto.jsp").forward(request,  response);
             return;
-        }
+        }*/
 
         if (!descrizione.matches(regexDescrizione)) {
             request.setAttribute("errore", "Descrizione non valida (min 5, max 500 caratteri).");
-            request.getRequestDispatcher("/WEB-INF/views/modificaProdotto.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/adminModificaProdotto.jsp").forward(request,  response);
             return;
         }
 
         if (!prezzoString.matches(regexNumD)) {
             request.setAttribute("errore", "Prezzo non valido. Usa il formato: 12.50 ");
-            request.getRequestDispatcher("/WEB-INF/views/modificaProdotto.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/adminModificaProdotto.jsp").forward(request,  response);
             return;
         }
         
         if(!ISBN.matches(regexISBN)){
 			request.setAttribute("errore", "Inserire o 10 o 13 numeri interi per l'ISBN ");
-    	    request.getRequestDispatcher("/WEB-INF/views/modificaProdotto.jsp").forward(request, response);
+			 request.getRequestDispatcher("/WEB-INF/views/admin/adminModificaProdotto.jsp").forward(request,  response);
     	    return;
 		}
         
@@ -95,7 +95,7 @@ public class AggiornaProdotto extends HttpServlet {
 
         if (p == null) {
             request.setAttribute("errore", "Prodotto non trovato.");
-            request.getRequestDispatcher("/WEB-INF/views/modificaProdotto.jsp").forward(request, response);
+            request.getRequestDispatcher("/WEB-INF/views/admin/adminModificaProdotto.jsp").forward(request,  response);
             return;
         }
 
@@ -126,6 +126,6 @@ public class AggiornaProdotto extends HttpServlet {
 
      
         request.getSession().setAttribute("successo", "Prodotto aggiornato correttamente!");
-        response.sendRedirect("Vendite");
+        response.sendRedirect(request.getContextPath() + "/Admin/AdminVisualizzaCatalogo");
     }
 }

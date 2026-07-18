@@ -8,7 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
+
 
 import model.bean.Prodotto;
 import model.dao.ProdottoDAO;
@@ -22,19 +22,20 @@ public class ModificaProdotto extends HttpServlet {
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	 public ModificaProdotto() {
+	        super();
+	        // TODO Auto-generated constructor stub
+	    }
 
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        HttpSession session = request.getSession(false);
+		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+		
 
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect("Login");
-            return;
-        }
-
-        String idLibroString = request.getParameter("idLibro");
-        int idLibro = Integer.parseInt(idLibroString);
+      
+        int idLibro = Integer.parseInt(request.getParameter("idLibro"));
         
         ProdottoDAO  dao = new ProdottoDAO();
         Prodotto libro = null;

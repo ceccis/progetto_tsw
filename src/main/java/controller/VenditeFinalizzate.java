@@ -36,10 +36,8 @@ public class VenditeFinalizzate extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect("Login");
-            return;
-        }
+		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+		
 		
         Utente u = new Utente();
         u = (Utente) session.getAttribute("utente");

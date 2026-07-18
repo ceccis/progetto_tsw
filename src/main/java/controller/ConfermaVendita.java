@@ -52,10 +52,7 @@ public class ConfermaVendita extends HttpServlet {
 		
 		HttpSession session = request.getSession(false);
 
-        if (session == null || session.getAttribute("utente") == null) {
-            response.sendRedirect("Login");
-            return;
-        }
+		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
         
          Utente u = (Utente) session.getAttribute("utente");
 		
@@ -149,8 +146,7 @@ public class ConfermaVendita extends HttpServlet {
 	    
 	    
 	    request.setAttribute("successo", "Vendita aggiunta correttamente! Puoi trovare la tua vendita nella sezione \"Le mie vendite\" del tuo profilo");
-		request.getRequestDispatcher("/WEB-INF/views/profilo.jsp").forward(request, response);
-	    
+	    request.getRequestDispatcher("/PaginaUtente").forward(request, response);
 	    
 	    
 	}

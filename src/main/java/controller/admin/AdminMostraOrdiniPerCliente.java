@@ -1,4 +1,4 @@
-package controller;
+package controller.admin;
 
 import java.io.IOException;
 import java.sql.SQLException;
@@ -9,22 +9,24 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.bean.Prodotto;
-import model.bean.Utente;
-import model.dao.ProdottoDAO;
+
+
+import model.bean.Acquisto;
+import model.dao.AcquistoDAO;
 
 /**
- * Servlet implementation class Vendite
+ * Servlet implementation class AdminOrdiniPerCliente
  */
-@WebServlet("/Vendite")
-public class Vendite extends HttpServlet {
+
+//cambiato annotazione mettendo Admin prima cosi' il filtro sa se questa servlet e' protetta
+@WebServlet("/Admin/AdminMostraOrdiniPerCliente")
+public class AdminMostraOrdiniPerCliente extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public Vendite() {
+    public AdminMostraOrdiniPerCliente() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -33,26 +35,24 @@ public class Vendite extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		HttpSession session = request.getSession(false);
-
-		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
 		
-        Utente u = new Utente();
-        u = (Utente) session.getAttribute("utente");
-        int idUtente = u.getId();
-		ProdottoDAO dao = new ProdottoDAO();
-		List<Prodotto> listaVendite = null;
+	
+		//tolto il controllo per vedere se l'utente e' loggato e admin perche' poi faro' un filtro che gestisce questa cosa
+		
+		String idUtenteS = request.getParameter("idUtente");
+		int idUtente = Integer.parseInt(idUtenteS);
+		AcquistoDAO dao = new AcquistoDAO();
+		List<Acquisto> listaOrdini = null;
 		try {
 			
-			listaVendite = dao.retrieveVenditeAttive(idUtente);
+			listaOrdini = dao.doRetrieveByKey(idUtente);
 		} catch (SQLException e) {
 			e.printStackTrace();
-			request.setAttribute("errore", "Errore nel caricamento delle vendite");
+			request.setAttribute("errore", "Errore nel caricamento degli acquisti");
 		}
-		request.setAttribute("vendite", listaVendite);
-		request.getRequestDispatcher("/WEB-INF/views/vendite.jsp").forward(request,  response);;
+		request.setAttribute("ordini", listaOrdini);
+		request.getRequestDispatcher("/WEB-INF/views/admin/adminMostraOrdiniPerCliente.jsp").forward(request,  response);
 	}
-	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
