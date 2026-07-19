@@ -10,6 +10,7 @@ public class Acquisto {
 	private int idVenditore;
 	private double prezzo_unitario;
 	private double iva_percentuale;
+	private double prezzoTotale;
 	private int quantita;
 	private LocalDateTime data; 
 	private String metodoPagamento;
@@ -34,6 +35,10 @@ public class Acquisto {
 	
 	public double getIva() {return iva_percentuale;}
 	public void setIva(double iva) {this.iva_percentuale = iva;}
+	
+	//aggiunta metodi getter e setter per il prezzpTotale
+	public double getPrezzoTotale() {return prezzoTotale;}
+	public void setPrezzoTotale(double prezzoTotale) {this.prezzoTotale = prezzoTotale;}
 	
 	public int getQuantita() {return quantita;}
 	public void setQuantita (int quantita) {this.quantita = quantita;}

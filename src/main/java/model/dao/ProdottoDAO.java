@@ -162,7 +162,7 @@ public class ProdottoDAO implements InterfacciaDAO<Prodotto, Integer>{
 	
 public List<Prodotto> retrieveVenditeAttive(int idVenditore) throws SQLException {
 	    
-	    String sql = "SELECT * FROM libro WHERE id_venditore = ? AND disponibilita = TRUE";
+	    String sql = "SELECT * FROM libro WHERE id_venditore = ? AND disponibilita = 1";
 	    List<Prodotto> prodotti = new ArrayList<>();
 
 	    try (Connection con = ConnectionPool.getConnection();
@@ -195,8 +195,9 @@ public List<Prodotto> retrieveVenditeAttive(int idVenditore) throws SQLException
 	}
 
 
+//modifica della query per far in modo che nelle vendite finalizzate venga visualizzato anche l'id dell'acquirente tramite un join
 public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLException {
-    String sql = "SELECT * FROM libro WHERE id_venditore = ? AND disponibilita = FALSE";
+    String sql = "SELECT l.*, a.id_acquirente FROM libro l JOIN acquisto a ON l.id_libro WHERE l.id_venditore = ? AND l.disponibilita = 0";
     List<Prodotto> prodotti = new ArrayList<>();
 
     try (Connection con = ConnectionPool.getConnection();

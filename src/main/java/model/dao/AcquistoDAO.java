@@ -10,7 +10,7 @@ import connessioneDB.ConnectionPool;
 import model.bean.Acquisto;
 
 public class AcquistoDAO {
-
+//aggiunta del prezzoTotale in ogni metodo DAO
 	
 	//metodo che restituisce tutti gli acquisti di un utente
 	public List<Acquisto> doRetrieveByKey(int idCliente) throws SQLException {
@@ -34,6 +34,7 @@ public class AcquistoDAO {
 				a.setPrezzo(rs.getDouble("prezzo_unitario"));
 				a.setIva(rs.getDouble("iva_percentuale"));
 				a.setQuantita(rs.getInt("quantita"));
+				a.setPrezzoTotale(rs.getDouble("prezzo_totale"));
 				a.setData(rs.getTimestamp("data_acquisto").toLocalDateTime());
 				a.setMetodoPagamento(rs.getString("metodo_pagamento_usato"));
 				
@@ -72,6 +73,7 @@ public class AcquistoDAO {
 				a.setIdLibro(rs.getInt("id_libro"));
 				a.setPrezzo(rs.getDouble("prezzo_unitario"));
 				a.setIva(rs.getDouble("iva_percentuale"));
+				a.setPrezzoTotale(rs.getDouble("prezzo_totale"));
 				a.setQuantita(rs.getInt("quantita"));
 				a.setData(rs.getTimestamp("data_acquisto").toLocalDateTime());
 				a.setMetodoPagamento(rs.getString("metodo_pagamento_usato"));
@@ -93,7 +95,7 @@ public class AcquistoDAO {
 	//metodo per restituire tutti gli acquisti fatti in uno specifico range di date
 	public List<Acquisto> doRetrieveByDate(Date data_inizio, Date data_fine) throws SQLException{
 		
-		String sql = "SELECT * FROM acquisto WHERE data BETWEEN ? AND ?";
+		String sql = "SELECT * FROM acquisto WHERE data_acquisto BETWEEN ? AND ?";
 		List<Acquisto> acquisti = new ArrayList<>();
 		
 		try(Connection con = ConnectionPool.getConnection();
@@ -112,6 +114,7 @@ public class AcquistoDAO {
 			a.setIdLibro(rs.getInt("id_libro"));
 			a.setPrezzo(rs.getDouble("prezzo_unitario"));
 			a.setIva(rs.getDouble("iva_percentuale"));
+			a.setPrezzoTotale(rs.getDouble("prezzo_totale"));
 			a.setQuantita(rs.getInt("quantita"));
 			a.setData(rs.getTimestamp("data_acquisto").toLocalDateTime());
 			a.setMetodoPagamento(rs.getString("metodo_pagamento_usato"));
@@ -135,8 +138,8 @@ public class AcquistoDAO {
 	//metodo per aggiungere un nuovo acquisto
 	public void doSave(Acquisto acquisto) throws SQLException {
 		
-		String sql = "INSERT INTO acquisto(id_acquirente, id_libro, id_venditore, prezzo_unitario, iva_percentuale, quantita, data_acquisto, metodo_pagamento_usato)" +
-					 "VALUES (?, ?, ?, ?, ?, ?, NOW(), ?)";
+		String sql = "INSERT INTO acquisto(id_acquirente, id_libro, id_venditore, prezzo_unitario, iva_percentuale, quantita, prezzo_totale, data_acquisto, metodo_pagamento_usato)" +
+					 "VALUES (?, ?, ?, ?, ?, ?, ?, NOW(), ?)";
 		
 		try(Connection con = ConnectionPool.getConnection();
 			PreparedStatement ps = con.prepareStatement(sql)){
@@ -148,7 +151,8 @@ public class AcquistoDAO {
 			ps.setDouble(4, acquisto.getPrezzo());
 			ps.setDouble(5, acquisto.getIva());
 			ps.setInt(6, acquisto.getQuantita());
-			ps.setString(7, acquisto.getMetodoPagamento());
+			ps.setDouble(7, acquisto.getPrezzoTotale());
+			ps.setString(8, acquisto.getMetodoPagamento());
 			
 			ps.executeUpdate();
 			
