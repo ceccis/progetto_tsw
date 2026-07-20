@@ -1,0 +1,100 @@
+@charset "UTF-8";
+
+.successo {
+	 background-color: rgba(34, 139, 34, 0.5);
+	 color: darkGreen;
+	 border: 1px solid darkGreen;
+	 padding: 10 px;
+	 border-radius: 5px;
+	 display: flex;
+	 font-weight: bold;	
+	 justify-content: space-between;    /* spinge testo e x agli estremi */
+}
+
+.errore {
+	 background-color: rgba(178 ,34 ,34 0.5);
+	 color: maroon;
+	 border: 1px solid maroon;
+	 padding: 10 px;
+	 border-radius: 5px;
+	 display: flex;
+	 font-weight: bold;	 
+	 justify-content: space-between;
+}
+
+.chiusura {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.chiusura:hover {
+    color: #0b3014;
+}
+
+
+/*profilo utente*/
+.info-profilo {
+	flex: 1 1 auto;      /*cresce, rimpicciolisce, dimensione auto*/
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 20px;
+	border: 1px solid;
+	border-radius: 8px;
+}
+
+
+/*tabella che mostra le vendite effettuate*/
+.tabella-vendite {
+	padding: 8px;
+	border: 1px solid #443223;    /*marrone*/
+	border-radius: 5px;
+	border-collapse: collapse;
+	text-align: center;
+}
+
+.tabella-vendite th {
+	background-color: #443223;   /*verde chiaro*/ 	
+	font-weight: bold;
+}
+
+.tabella-vendite td a {
+	display: inline-block;
+	padding: 5px 10px;
+	font-size: 13px;
+	font-weight: bold;
+}
+
+.tabella-vendite td a[href^="Dettaglio"] {
+	background-color: rgba(117, 81, 81, 50%);     /*rosa*/
+	color: #FFF9F3;
+}
+
+.tabella-vendite td a[href^="Modifica"] {
+	background-color: rgba(117, 81, 81, 50%);     /*rosa*/
+	color: #FFF9F3;
+}
+
+.tabella-vendite td a[href^="Elimina"] {
+	background-color: rgba(117, 81, 81, 50%);     /*rosa*/
+	color: #FFF9F3;
+}
+
+
+.btn-aggiungi-vendita {
+	display: inline-block;   /*stanno affiancati ma il padding è regolabile*/
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;
+	color: #443223;   /*verde chiaro*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.btn-aggiungi-vendita:hover {
+    background-color: #44422D; /*verde scuro*/
+}
