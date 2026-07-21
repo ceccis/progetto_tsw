@@ -18,15 +18,16 @@
 		<%@ include file= "fragment/menu.jspf" %>
 		
 		<h1> Pagina registrazione</h1>
+		
 		<% 
-		    String err =(String) request.getAttribute("errore");
+		    String err = (String) request.getAttribute("errore");
 		    if (err != null) {
 		%>
 		    <div class="msg-errore">
 		        <p><%= err %></p>
 		        <% } %>
 		    </div>
-		
+		    
 		<form action="Registrazione" method="POST">
 		
 				<label for="nome">Nome:</label><br>
@@ -68,7 +69,7 @@
 		        <label for="numCiv">Numero Civico:</label><br>
 		        <input type="text" id="numCiv" name="numCiv" required><br><br>
 		        
-		        <button type="submit">Registrati</button>
+		        <button type="submit" class="btn-registrazione">Registrati</button>
 		    </form>
 		
 		<%@ include file="fragment/footer.jspf" %>

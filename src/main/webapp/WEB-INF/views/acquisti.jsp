@@ -6,7 +6,8 @@
 	<head>
 	    <meta charset="UTF-8">
 	    <title>I tuoi acquisti</title>
-	    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
+	    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
 	</head>
 	
 	<body>
