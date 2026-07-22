@@ -329,7 +329,7 @@ public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLExce
 //metodo per cercare un libro tramite nome
 	public List <Prodotto> RicercaLibro(String query) throws SQLException {
 	   List<Prodotto> risultati = new ArrayList<>();
-	   String sql = "SELECT * FROM libro WHERE titolo LIKE ? AND disponibilita = TRUE";
+	   String sql = "SELECT * FROM libro WHERE nome LIKE ? AND disponibilita = TRUE";
 	    
 	    try(Connection con = ConnectionPool.getConnection();
 	    	PreparedStatement ps = con.prepareStatement(sql)){
@@ -339,8 +339,8 @@ public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLExce
 	    	try (ResultSet rs = ps.executeQuery()) {
 	    		while (rs.next()) {
 	    			Prodotto p = new Prodotto();
-	    			p.setId(rs.getInt("id"));
-	    			p.setTitolo(rs.getString("titolo"));
+	    			p.setId(rs.getInt("id_libro"));
+	    			p.setTitolo(rs.getString("nome"));
 	                p.setPrezzo(rs.getDouble("prezzo"));
 	                risultati.add(p);
 	    		}

@@ -35,11 +35,12 @@
 						results.innerHTML = "<p> La ricerca non ha prodotto risultati </p>";
 					}
 				}
-			}
+			
 			
 		xhr.open ("GET", "RicercaServlet?query=" + encodeURIComponent(text), true);
 		xhr.send();
-			
+		
+		}
 	</script>
 			
 	<%-- controllo per vedere se l'utente é loggato o meno con scriptlet DA MODIFICARE CON JSTL --%>

@@ -58,9 +58,11 @@ public class RicercaServlet extends HttpServlet {
 		if (listaRisultati.isEmpty()) {
 			out.print("<p>La ricerca non ha prodotto risultati.</p>");
 	    } else {
-	        out.print("<ul class=\"lista-suggerimenti\">");
+	    	String contextPath = request.getContextPath();
+	    	
+	        out.print("<ul class=\"lista-suggerimenti\">");       //controllare css
 	        for (Prodotto p : listaRisultati) {
-	        	out.print("<li onclick=\"window.location.href='DettaglioProdotto?idLibro=" + p.getId() + "'\">");
+	        	out.print("<li onclick=\"window.location.href='" + contextPath + "/DettaglioProdotto?idLibro=" + p.getId() + "'\">");
 	            out.print(p.getTitolo() + " - " + p.getPrezzo() + " &euro;");
 	            out.print("</li>");
 	        }

@@ -12,7 +12,7 @@ pageEncoding="UTF-8" %>
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>${pageTitle}</title>
+		<title>Login</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
 	</head>
