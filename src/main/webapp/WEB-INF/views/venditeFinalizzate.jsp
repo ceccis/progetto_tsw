@@ -47,6 +47,7 @@
 		            <th>Prezzo</th>
 		            <th>ISBN</th>
 		            <th>ID Venditore</th>
+		            <th>ID Acquirente</th>
 		            
 		        </tr>
 		
@@ -57,6 +58,7 @@
 		                <td>${p.prezzo} €</td>
 		                <td>${p.ISBN}</td>
 		                <td>${p.idVenditore}</td>
+		                <td>${p.idAcquirente}</td>
 		
 		              
 		            </tr>
