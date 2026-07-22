@@ -1,0 +1,12 @@
+<?xml version ="1.0" encoding="UTF-8"?>
+
+<!-- contxt.xml é un file di configurazione per il server, qui dentro vengono definite le risorse che servono al server-->
+<Context>
+	<Resource name = "jdbc/ProgettoTSW"
+		auth="Container"
+		driverClassName="com.mysql.cj.jdbc.Driver"
+		type="javax.sql.DataSource"
+		username="root"
+		password="Passw0rdSQL2005"
+		url="jdbc:mysql://localhost:3306/sitotsw"/>
+</Context>
