@@ -137,3 +137,25 @@
     cursor: pointer;    /*altiemnti non esce la manina*/
     font-size: 14px;
 }
+
+.btn-annulla-modifiche-profilo {
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;      /*bianco*/
+	color: #443223;   /*verde chiaro*/
+	border: 1px solid #443223;     /*marrone*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.btn-conferma-modifiche {
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;      /*bianco*/
+	color: rgba(117, 81, 8);   /*rosa*/
+	border: 1px solid rgba(117, 81, 8);     /*rosa*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}

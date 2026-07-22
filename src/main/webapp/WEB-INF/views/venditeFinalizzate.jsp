@@ -22,7 +22,7 @@
 		    </div>
 		    <c:remove var="successo" scope="session"/>
 		</c:if>
-		
+
 		
 		<!-- Messaggio di errore -->
 		<c:if test="${not empty errore}">
@@ -35,18 +35,19 @@
 		
 		<!-- Se la lista è vuota -->
 		<c:if test="${empty vendite}">
-		    <p>Non hai ancora messo in vendita nessun prodotto.</p>
+		    <p>Nessun tuo prodotto e' stato acquistato.</p>
 		</c:if>
 		
 		<!-- Lista delle vendite -->
 		<c:if test="${not empty vendite}">
 		    <table class="tabella-vendite">
 		        <tr>
-		            <th>ID</th>
+		            <th>ID Libro</th>
 		            <th>Titolo</th>
 		            <th>Prezzo</th>
 		            <th>ISBN</th>
-		            <th>Azioni</th>
+		            <th>ID Venditore</th>
+		            
 		        </tr>
 		
 		        <c:forEach var="p" items="${vendite}">
@@ -55,26 +56,15 @@
 		                <td>${p.titolo}</td>
 		                <td>${p.prezzo} €</td>
 		                <td>${p.ISBN}</td>
+		                <td>${p.idVenditore}</td>
 		
-		                <td>
-		                    <!-- Pulsante per vedere il dettaglio -->
-		                    <a href="DettaglioProdotto?idLibro=${p.id}">Dettaglio</a>
-		
-		                    <!-- Pulsante per modificare -->
-		                    <a href="ModificaProdotto?idLibro=${p.id}">Modifica</a>
-		                    
-		                    <!-- Pulsante per eliminare -->
-		                    <a href="EliminaProdotto?idLibro=${p.id}">Elimina</a>
-		                </td>
+		              
 		            </tr>
 		        </c:forEach>
 		
 		    </table>
 		</c:if>
 		
-		<!-- Pulsante per aggiungere una nuova vendita -->
-		<br><br>
-		<a href="AggiungiVendita" class="btn-aggiungi-vendita">Aggiungi nuova vendita</a>
-		
+	
 	</body>
 </html>

@@ -60,7 +60,6 @@
 	%>
 		<a class = "btn-login" href="${pageContext.request.contextPath}/Login"> Accedi</a>
 		<a class ="btn-registrazione" href="${pageContext.request.contextPath}/Registrazione"> Registrati</a>
-	<%-- questi link dovranno essere pulsanti in alto a lato della pagina (vedi mockup che abbiamo fatto su word) FARE CON CSS --%>
 	<%
 	}
 	%>
