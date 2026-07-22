@@ -310,7 +310,7 @@ public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLExce
 	}
 	
 	
-	//metodo per modificare l'attribtuo disponibilita a false = cio' accade quando un libro viene acquistato e quindi non deve essere piu' mostrato nel catalogo
+//metodo per modificare l'attribtuo disponibilita a false = cio' accade quando un libro viene acquistato e quindi non deve essere piu' mostrato nel catalogo
 	public void disattivaLibro(int idLibro) throws SQLException {
 	    String sql = "UPDATE libro SET disponibilita = FALSE WHERE id_libro = ?";
 	    
@@ -325,5 +325,32 @@ public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLExce
 	    }
 	}
 
+	
+//metodo per cercare un libro tramite nome
+	public List <Prodotto> RicercaLibro(String query) throws SQLException {
+	   List<Prodotto> risultati = new ArrayList<>();
+	   String sql = "SELECT * FROM libro WHERE titolo LIKE ? AND disponibilita = TRUE";
+	    
+	    try(Connection con = ConnectionPool.getConnection();
+	    	PreparedStatement ps = con.prepareStatement(sql)){
+	    	
+	    	ps.setString(1, "%" + query + "%");
+	    	
+	    	try (ResultSet rs = ps.executeQuery()) {
+	    		while (rs.next()) {
+	    			Prodotto p = new Prodotto();
+	    			p.setId(rs.getInt("id"));
+	    			p.setTitolo(rs.getString("titolo"));
+	                p.setPrezzo(rs.getDouble("prezzo"));
+	                risultati.add(p);
+	    		}
+	    	}
+	    	
+	    	
+	    }catch (Exception e) {
+	    	e.printStackTrace();
+	    }
+	    return risultati;
+	}
 	
 }
