@@ -19,33 +19,35 @@ pageEncoding="UTF-8" %>
 	
 	<body>
 		<%@ include file="fragment/header.jspf" %>
-		<%@ include file= "fragment/menu.jspf" %>
 		
-		<h1> Pagina login </h1>			
+		<main>	
+			<h1> Pagina login </h1>			
+			
+			<form action="Login" method="POST">
+			  <h2>Accedi</h2>
+			  	<label for="username">Username</label>
+			  	<input  id="username" name="username" required>
+			  
+			 	<label for="password">Password</label>
+			  	<input type="password" id="password" name="password" required>
+			  
+			  <button type="submit">Entra</button>
+			</form>
+			
+			<% 
+			    List<String> errs = (List<String>) request.getAttribute("errors");
+			    if (errs != null) {
+			%>
+			    <div id="boxErroreLista" class="errore">
+			        <% for(String e : errs) { %>
+			            <p><%= e %></p>
+			        <% } %>
+			    </div>
+			<% 
+			    }
+			%>
+		</main>
 		
-		<form action="Login" method="POST">
-		  <h2>Accedi</h2>
-		  	<label for="username">Username</label>
-		  	<input  id="username" name="username" required>
-		  
-		 	<label for="password">Password</label>
-		  	<input type="password" id="password" name="password" required>
-		  
-		  <button type="submit">Entra</button>
-		</form>
-		
-		<% 
-		    List<String> errs = (List<String>) request.getAttribute("errors");
-		    if (errs != null) {
-		%>
-		    <div id="boxErroreLista" class="errore">
-		        <% for(String e : errs) { %>
-		            <p><%= e %></p>
-		        <% } %>
-		    </div>
-		<% 
-		    }
-		%>
 		<%@ include file="fragment/footer.jspf" %>
 	</body>
 </html>

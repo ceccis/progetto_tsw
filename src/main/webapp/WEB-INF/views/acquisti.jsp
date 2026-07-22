@@ -11,38 +11,43 @@
 	</head>
 	
 	<body>
+		<%@ include file="fragment/header.jspf" %>
+		
+		<main>
 	
-		<h2>Acquisti effettuati</h2>
+			<h2>Acquisti effettuati</h2>
+			
+			<!-- stile errore -->
+			<c:if test="${not empty errore}">
+			    <div id="boxErr" class="errore">
+			        <span>${errore}</span>
+			        <span class="chiusura" onclick="document.getElementById('boxErr').style.display='none'">&times;</span>
+			    </div>
+			</c:if>
+			
+			<!-- Nessun acquisto -->
+			<c:if test="${empty acquisti}">
+			    <p>Non hai ancora effettuato acquisti.</p>
+			</c:if>
+			
+			<!-- Lista acquisti -->
+			<c:if test="${not empty acquisti}">
+			    <ul>
+			        <c:forEach var="a" items="${acquisti}">
+			            <li>
+			                <strong>ID Acquisto:</strong> ${a.idAcquisto} <br>
+			                <strong>ID Libro:</strong> ${a.idLibro} <br>
+			                <strong>Prezzo:</strong> ${a.prezzo} <br>
+			                <strong>IVA :</strong> ${a.iva} <br>
+			                <strong>Prezzo totale (prezzo unitario + iva):</strong> ${a.prezzoTotale} <br>
+			                <strong>ID Venditore:</strong> ${a.idVenditore} <br>
+			                <strong>Data:</strong> ${a.data} <br><br>
+			            </li>
+			        </c:forEach>
+			    </ul>
+			</c:if>
+		</main>
 		
-		<!-- stile errore -->
-		<c:if test="${not empty errore}">
-		    <div id="boxErr" class="errore">
-		        <span>${errore}</span>
-		        <span class="chiusura" onclick="document.getElementById('boxErr').style.display='none'">&times;</span>
-		    </div>
-		</c:if>
-		
-		<!-- Nessun acquisto -->
-		<c:if test="${empty acquisti}">
-		    <p>Non hai ancora effettuato acquisti.</p>
-		</c:if>
-		
-		<!-- Lista acquisti -->
-		<c:if test="${not empty acquisti}">
-		    <ul>
-		        <c:forEach var="a" items="${acquisti}">
-		            <li>
-		                <strong>ID Acquisto:</strong> ${a.idAcquisto} <br>
-		                <strong>ID Libro:</strong> ${a.idLibro} <br>
-		                <strong>Prezzo:</strong> ${a.prezzo} <br>
-		                <strong>IVA :</strong> ${a.iva} <br>
-		                <strong>Prezzo totale (prezzo unitario + iva):</strong> ${a.prezzoTotale} <br>
-		                <strong>ID Venditore:</strong> ${a.idVenditore} <br>
-		                <strong>Data:</strong> ${a.data} <br><br>
-		            </li>
-		        </c:forEach>
-		    </ul>
-		</c:if>
-	
+		<%@ include file= "fragment/footer.jspf" %>
 	</body>
 </html>

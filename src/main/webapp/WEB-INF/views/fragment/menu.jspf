@@ -1,7 +1,7 @@
 
 <%-- navigazione per le varie pagine  --%>	
 
-<nav class= "navbar" id= "navbar">
+<nav class= "nav-menu" id= "navbar">
 	<a href="index.jsp"> Home </a>
 	<a href="${pageContext.request.contextPath}/Vendite">Vendite</a>
 	<a href="${pageContext.request.contextPath}/Acquisti">Acquisti</a>

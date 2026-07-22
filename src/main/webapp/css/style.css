@@ -1,15 +1,14 @@
 @charset "UTF-8";
 
-.body {                 /* tutto ciò presente sulla pagina (header, footer menu ecc) */
+body {                 /* tutto ciò presente sulla pagina (header, footer menu ecc) */
 	margin: 0;
 	display: flex;
 	flex-direction: column;
 	background-color: #FFF9F3;
 	min-height: 100vh;
-	padding-top: 200px;       /*per non far sparire gli elementi sotto l'header */
 }
 
-.main {                 /*contenuti unici di quella pagina, escludendo header e footer*/
+main {                 /*contenuti unici di quella pagina, escludendo header e footer*/
 	flex: 1;
 }
 
@@ -23,11 +22,24 @@
 	text-align: left;
 	padding: 30px;
 	font-size: 14px;
-	position: fixed;
 	width: 100%;
-	height: 70px;
+	position: sticky;
 	top: 0;
-	left: 0; 
+	z-index: 100;   /*rimane sopra tutto, importanza 100*/
+}
+
+.header-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.header-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
 }
 
 .footer {
@@ -36,6 +48,43 @@
 	text-align: center;	
 	padding: 30px;                           
   	margin-top: 50px; 
+}
+
+.nav-menu {
+    display: flex;
+    gap: 15px; 
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #443223;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.search-container {
+    display: flex;
+    gap: 10px; /* separa barra e tasto" */
+    align-items: center;
+}
+
+#searchBar {
+    width: 300px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid #443223;
+    outline: none;
+}
+
+
+#searchBtn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #FFF9F3;
+    color: #443223;
+    border: 1px solid #443223;
+    font-weight: bold;
+    cursor: pointer;
 }
 
 .btn-login {

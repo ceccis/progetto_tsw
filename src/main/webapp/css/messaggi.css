@@ -103,23 +103,8 @@
 }
 
 .btn-aggiungi-vendita:hover {
-    background-color: #44422D; /*verde scuro*/
+    background-color: rgba(68, 66, 45, 0.5) /*verde scuro*/
 }
-
-
-/*registrazione utente*/
-/*
-.btn-registrazione {
-	margin-top: 20px;
-	padding: 12px 4px;
-	background-color: #FFF9F3;
-	color: #443223;   /*verde chiaro
-	border: 1px solid #443223;   /*verde chiaro
-	border-radius: 5px;
-	font-weight: bold;
-	font-size: 15px;
-}
-*/
 
 .btn-annulla-vendita {
 	margin-top: 20px;

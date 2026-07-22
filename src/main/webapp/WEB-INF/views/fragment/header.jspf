@@ -1,68 +1,67 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-    
- <!DOCTYPE html>
-<html lang = "it">
+<!DOCTYPE html>
+<html lang="it">
 
-<header class= "header" id= "header">
-	<h1 class="titolo-main"> NextChapter </h1>
-	
-	<div class="search-container">
-		<input type = "text" id="searchBar" placeholder="Cerca un libro..." autocomplete="off" onkeyup="ricercaLibro">
-		<button type = "button" id="searchBtn" onclick="ricercaLibro()"> Cerca </button>
+<header class="header" id="header">
+
+	<div class="header-top">
+	    <h1 class="titolo-main">NextChapter</h1>
+	    
+	    <div class="user-actions">
+	        <%
+	            Object utente = session.getAttribute("utente");
+	            if (utente != null) {
+	        %>
+	        <a class="btn-profilo" href="${pageContext.request.contextPath}/PaginaUtente"> Profilo </a>
+	        <%
+	            } else {
+	        %>
+	        <a class="btn-login" href="${pageContext.request.contextPath}/Login"> Accedi </a> 
+	        <a class="btn-registrazione" href="${pageContext.request.contextPath}/Registrazione"> Registrati </a>
+	        <%
+	            }
+	        %>
+	    </div>
 	</div>
-	
-	<div id="risultatiRicerca"></div>	
-	
-	<script>
-	
-		document.getElementById("searchBar").addEventListener("input", function() {ricercaLibro();});
-		
-		function ricercaLibro () {
-			var text = document.getElementById("searchBar").value;
-			var results = document.getElementById("risultatiRicerca");
-			
-			if (text.length === 0){
-				results.innerHTML = "";     /*se la ricerca viene cancellata, inner inserisce "" al suo posto*/
-				return;     /*esce dalla funzione*/
-			}
-			
-			var xhr = new XMLHttpRequest();
-			xhr.onreadystatechange = function () {
-				if (this.readyState == 4 && this.status == 200) {
-						results.innerHTML = this.responseText;
-					} else {
-						results.innerHTML = "<p> La ricerca non ha prodotto risultati </p>";
-					}
-				}
-			
-			
-		xhr.open ("GET", "RicercaServlet?query=" + encodeURIComponent(text), true);
-		xhr.send();
-		
-		}
-	</script>
-			
-	<%-- controllo per vedere se l'utente é loggato o meno con scriptlet DA MODIFICARE CON JSTL --%>
-	
-	<%
-	Object utente = session.getAttribute("utente");
-		if (utente!=null){ 
-	%>
-	
-	<%-- se é loggato nell'header verrá mostrata la possibilitá di entrare nella propria pagina dell'account --%>
-		<a class= "btn-profilo" href= "${pageContext.request.contextPath}/PaginaUtente"> Profilo </a>
-		
-		
-	<%-- altrimenti ci saranno le due opzioni accedi o registrati --%>
-	<%
-		} else { 
-	%>
-		<a class = "btn-login" href="${pageContext.request.contextPath}/Login"> Accedi</a>
-		<a class ="btn-registrazione" href="${pageContext.request.contextPath}/Registrazione"> Registrati</a>
-	<%
-	}
-	%>
 
+	<div class="header-bottom">
+		<%@ include file="menu.jspf" %>
+		<div class="search-container">
+			<input type="text" id="searchBar" placeholder="Cerca un libro..."
+				autocomplete="off" onkeyup="ricercaLibro">
+			<button type="button" id="searchBtn" onclick="ricercaLibro()">
+				Cerca</button>
+		</div>
+
+		<div id="risultatiRicerca"></div>
+	</div>
 </header>
 
+<script>
+	document.getElementById("searchBar").addEventListener("input", function() {
+		ricercaLibro();
+	});
+
+	function ricercaLibro() {
+		var text = document.getElementById("searchBar").value;
+		var results = document.getElementById("risultatiRicerca");
+
+		if (text.length === 0) {
+			results.innerHTML = ""; /*se la ricerca viene cancellata, inner inserisce "" al suo posto*/
+			return; /*esce dalla funzione*/
+		}
+
+		var xhr = new XMLHttpRequest();
+		xhr.onreadystatechange = function() {
+			if (this.readyState == 4 && this.status == 200) {
+				results.innerHTML = this.responseText;
+			} else {
+				results.innerHTML = "<p> La ricerca non ha prodotto risultati </p>";
+			}
+		}
+
+		xhr.open("GET", "RicercaServlet?query=" + encodeURIComponent(text),
+				true);
+		xhr.send();
+
+	}
+</script>
