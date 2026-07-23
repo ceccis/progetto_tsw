@@ -102,6 +102,79 @@
     background-color: rgba(117, 81, 8, 0.5) /*verde scuro*/
 }
 
+/*fattura*/
+.tabella-fattura {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.tabella-fattura th,
+.tabella-fattura td {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+.tabella-fattura th {
+    background-color: #443223;
+    color: #fff;
+}
+
+.btn-stampa {
+    margin-top: 20px;
+    padding: 10px 24px;
+    background-color: #443223;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-stampa:hover {
+    background-color: #665038;
+}
+
+@media (max-width: 600px) {
+
+    .tabella-fattura thead {
+        display: none;
+    }
+
+    .tabella-fattura,
+    .tabella-fattura tbody,
+    .tabella-fattura tr,
+    .tabella-fattura td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabella-fattura tr {
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px;
+    }
+
+    .tabella-fattura td {
+        border: none;
+        padding: 6px 0;
+        text-align: right;
+        position: relative;
+        padding-left: 45%;
+    }
+
+    .tabella-fattura td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 40%;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
 .lista-suggerimenti li {
     padding: 8px 14px;
     cursor: pointer;    /*altiemnti non esce la manina*/
