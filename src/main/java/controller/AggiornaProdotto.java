@@ -42,8 +42,8 @@ public class AggiornaProdotto extends HttpServlet {
 
        
         //regex per i campi "letterali"
-        //controlla il campo dall'inizio alla fine e permette solo lettere (accentate e non) e spazi bianchi
-        String regexLett = "^[a-zA-ZÀ-ÿ\\s]{2,50}$";
+        //controlla il campo dall'inizio alla fine e permette solo lettere (accentate e non), numeri, virgole, trattini, apostrofi, punti e spazi bianchi
+        String regexLett = "^[A-Za-zÀ-ÖØ-öø-ÿ0-9 ,.'-]{2,50}$";
         
         //regex per la descrizione del libro, controlla che sia almeno di 5 caratteri e massimo di 500 (con spazi)
         String regexDescrizione = "^.{5,500}$";

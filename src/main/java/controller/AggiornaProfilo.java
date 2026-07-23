@@ -130,7 +130,7 @@ public class AggiornaProfilo extends HttpServlet {
         if (isEmpty(nuovaPassword)) {
         	//se l'utente non vuole cambiare la password non la inserisce
             // tieni quella già presente nel DB
-            u.setHash(passwordAttuale);
+        	dbUser.setHash(passwordAttuale);
             
             //se la inserisce controllo se rispetta la regex
         } else if (!nuovaPassword.matches(regexPassword)) {
@@ -142,35 +142,35 @@ public class AggiornaProfilo extends HttpServlet {
         }else {
         	
         	String hash = toHash(nuovaPassword);
-        	u.setHash(hash);
+        	dbUser.setHash(hash);
         	
         }
 
 
 
         //aggiornamento bean
-        u.setNome(nome);
-        u.setCognome(cognome);
-        u.setUsername(username);
-        u.setEmail(email);
-        u.setBio(bio);
-        u.setMetodoPagamento(metodoPagamento);
-        u.setNazione(nazione);
-        u.setRegione(regione);
-        u.setProvincia(provincia);
-        u.setComune(comune);
-        u.setVia(via);
-        u.setNumCiv(numCiv);
+        dbUser.setNome(nome);
+        dbUser.setCognome(cognome);
+        dbUser.setUsername(username);
+        dbUser.setEmail(email);
+        dbUser.setBio(bio);
+        dbUser.setMetodoPagamento(metodoPagamento);
+        dbUser.setNazione(nazione);
+        dbUser.setRegione(regione);
+        dbUser.setProvincia(provincia);
+        dbUser.setComune(comune);
+        dbUser.setVia(via);
+        dbUser.setNumCiv(numCiv);
 
        
         try {
-            dao.doUpdate(u);
+            dao.doUpdate(dbUser);
         } catch (SQLException e) {
             e.printStackTrace();
         }
 
         // aggiorno la sessione
-        session.setAttribute("utente", u);
+        session.setAttribute("utente", dbUser);
 
         session.setAttribute("successo", "Profilo aggiornato correttamente!");
 

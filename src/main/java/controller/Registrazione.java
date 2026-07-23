@@ -122,11 +122,11 @@ public class Registrazione extends HttpServlet {
             	    return;
             	} 
             	
-            	/*if (!password.matches(regexPassword)) {
+            	if (!password.matches(regexPassword)) {
             	    request.setAttribute("errore", "Password non valida: inserire almeno 8 caratteri, una lettera minuscola, una maiuscola e un carattele speciale fra @ $ ! % * ? & ");
             	    request.getRequestDispatcher("/WEB-INF/views/registrazione.jsp").forward(request, response);
             	    return;
-            	}*/
+            	}
             	
             	if (!numCiv.matches(regexNum)) {
             	    request.setAttribute("errore", "Inserire da 1 a 4 cifre nel campo numero civico ");

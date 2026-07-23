@@ -197,7 +197,7 @@ public List<Prodotto> retrieveVenditeAttive(int idVenditore) throws SQLException
 
 //modifica della query per far in modo che nelle vendite finalizzate venga visualizzato anche l'id dell'acquirente tramite un join
 public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLException {
-    String sql = "SELECT l.*, a.id_acquirente FROM libro l JOIN acquisto a ON l.id_libro WHERE l.id_venditore = ? AND l.disponibilita = 0";
+    String sql = "SELECT l.*, a.id_acquirente FROM libro l JOIN acquisto a ON l.id_libro = a.id_libro WHERE l.id_venditore = ? AND l.disponibilita = 0";
     List<Prodotto> prodotti = new ArrayList<>();
 
     try (Connection con = ConnectionPool.getConnection();
@@ -218,6 +218,7 @@ public List<Prodotto> retrieveVenditeFinalizzate(int idVenditore) throws SQLExce
             p.setDescrizione(rs.getString("descrizione"));
             p.setData(rs.getDate("data_pubblicazione").toLocalDate());
             p.setIdVenditore(rs.getInt("id_venditore"));
+            p.setIdAcquirente(rs.getInt("id_acquirente"));
             p.setDisponibilita(rs.getBoolean("disponibilita"));
 
             prodotti.add(p);

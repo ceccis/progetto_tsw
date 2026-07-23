@@ -14,13 +14,14 @@ public class Prodotto{
 	private String descrizione;
 	private LocalDate data;
 	private int id_venditore;
-	private boolean disponibilita; //aggiunta attributo disponibilita al bean
+	private int id_acquirente; //puo' essere null, e' solo per recuperare eventualmente l'id dell'acquirente tramite un join con la tabella acquisti
+	private boolean disponibilita; 
 	
 	public Prodotto() {}
 	
 	
 	//questo costruttore si puo anche togliere in realta' perche' non viene usato
-	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data, int id_venditore, boolean disponibilita) {
+	public Prodotto(int id, String titolo, double prezzo, byte[] foto, String ISBN, String autore, String genere, String descrizione, LocalDate data, int id_venditore,int id_acquirente, boolean disponibilita) {
 		this.id = id; 
 		this.titolo= titolo;
 		this.prezzo= prezzo;
@@ -31,6 +32,7 @@ public class Prodotto{
 		this.descrizione= descrizione;
 		this.data= data;
 		this.id_venditore = id_venditore;
+		this.id_acquirente = id_acquirente;
 		this.disponibilita = disponibilita;
 		
 	}
@@ -65,6 +67,9 @@ public class Prodotto{
 	
 	public int getIdVenditore() {return id_venditore;}
 	public void setIdVenditore(int id_venditore) {this.id_venditore = id_venditore;}
+	
+	public int getIdAcquirente() {return id_acquirente;}
+	public void setIdAcquirente(int id_acquirente) {this.id_acquirente = id_acquirente;}
 	
 	public boolean getDisponibilita () {return disponibilita;}
 	public void setDisponibilita(boolean disponibilita) {this.disponibilita=disponibilita;}

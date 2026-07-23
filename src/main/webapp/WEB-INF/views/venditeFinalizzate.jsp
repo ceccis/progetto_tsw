@@ -67,6 +67,6 @@
 			</c:if>
 		</main>
 		
-		<%@ include file= "fragment/footer.jspf" %>		
+		<%@ include file= "fragment/footer.jspf" %>
 	</body>
 </html>
