@@ -1,5 +1,6 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>  <!-- per arrotondare il prezzo -->
 
 <!DOCTYPE html>
 <html lang="it">
@@ -41,20 +42,29 @@
 			</c:if>
 			
 			<c:if test="${not empty prodotti}">
-			    <ul>
-			        <c:forEach var="p" items="${prodotti}">
-			            <li>
-			                <strong>${p.titolo}</strong><br>
-			                Prezzo: ${p.prezzo} €<br>
-			                ID Libro: ${p.id}<br><br>
-			            </li>
-			        </c:forEach>
-			    </ul>
+			    <table class="tabella-fattura">
+			        <thead>
+			            <tr>
+			                <th>Titolo</th>
+			                <th>Prezzo</th>
+			                <th>ID Libro</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <c:forEach var="p" items="${prodotti}">
+			                <tr>
+			                    <td data-label="Titolo">${p.titolo}</td>
+			                    <td data-label="Prezzo">${p.prezzo} &euro;</td>
+			                    <td data-label="ID Libro">${p.id}</td>
+			                </tr>
+			            </c:forEach>
+			        </tbody>
+			    </table>
 			</c:if>
 			
 			<!-- Totale -->
 			<h3>Totale (inclusa IVA al 22% per ogni prodotto)</h3>
-			<p>${totale} €</p>
+			<p><fmt:formatNumber value="${totale}" maxFractionDigits="2" minFractionDigits="2"/> &euro;</p>
 			
 			<!-- Pulsante conferma ordine -->
 			<form action="FinalizzaOrdine" method="POST">

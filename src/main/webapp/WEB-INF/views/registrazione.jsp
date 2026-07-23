@@ -69,7 +69,7 @@
 			        <label for="numCiv">Numero Civico:</label><br>
 			        <input type="text" id="numCiv" name="numCiv" required><br><br>
 			        
-			        <button type="submit" class="btn-registrazione">Registrati</button>
+			        <button type="submit" class="btn-aggiungi-vendita">Registrati</button>
 			    </form>
 		</main>
 		

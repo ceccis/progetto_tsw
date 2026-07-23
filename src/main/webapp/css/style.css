@@ -1,5 +1,9 @@
 @charset "UTF-8";
 
+* {                           /*per non far scorrere in orizzontale*/
+    box-sizing: border-box;
+}
+
 body {                 /* tutto ciò presente sulla pagina (header, footer menu ecc) */
 	margin: 0;
 	display: flex;

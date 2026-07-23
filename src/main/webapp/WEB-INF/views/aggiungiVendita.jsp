@@ -46,7 +46,7 @@
 			    <label>Foto:</label><br>
 			    <input type="file" name="foto"><br><br>
 			
-			    <button type="submit" class="btn-registrazione">Conferma</button>
+			    <button type="submit" class="btn-aggiungi-vendita">Conferma</button>
 			    <button type="button" class="btn-annulla-vendita" onclick="location.href='profilo.jsp'">Annulla</button>
 			
 			</form>

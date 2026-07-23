@@ -26,13 +26,11 @@
 	<div class="header-bottom">
 		<%@ include file="menu.jspf" %>
 		<div class="search-container">
-			<input type="text" id="searchBar" placeholder="Cerca un libro..."
-				autocomplete="off" onkeyup="ricercaLibro">
-			<button type="button" id="searchBtn" onclick="ricercaLibro()">
-				Cerca</button>
+			<input type="text" id="searchBar" placeholder="Cerca un libro..." autocomplete="off" onkeyup="ricercaLibro">
+			<button type="button" id="searchBtn" onclick="ricercaLibro()">Cerca</button>
+			<div id="risultatiRicerca"></div>   
 		</div>
 
-		<div id="risultatiRicerca"></div>
 	</div>
 </header>
 

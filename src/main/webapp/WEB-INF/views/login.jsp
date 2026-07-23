@@ -3,6 +3,7 @@
 <%@ page import= "javax.servlet.http.HttpServletRequest"%>
 <%@ page import= "javax.servlet.http.HttpServletResponse"%>
 <%@ page import= "javax.servlet.http.HttpSession"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
 <%@
 page language="java" contentType="text/html; charset=UTF-8"
@@ -22,6 +23,14 @@ pageEncoding="UTF-8" %>
 		
 		<main>	
 			<h1> Pagina login </h1>			
+			
+			<c:if test="${not empty successo}">
+			    <div id="boxSucc" class="successo">
+			        <span>${successo}</span>
+			        <span class="chiusura" onclick="document.getElementById('boxSucc').style.display='none'">&times;</span>
+			    </div>
+			    <c:remove var="successo" scope="session"/>
+			</c:if>
 			
 			<form action="Login" method="POST">
 			  <h2>Accedi</h2>
