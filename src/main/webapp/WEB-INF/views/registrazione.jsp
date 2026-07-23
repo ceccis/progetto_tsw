@@ -45,8 +45,18 @@
 			        <label for="password">Password:</label><br>
 			        <input type="password" id="password" name="password" required><br><br>
 			        
-			        <label for="metodoPagamento">Metodo Pagamento:</label><br>
-			        <input type="text" id="metodoPagamento" name="metodoPagamento" required><br><br>
+			        <p>Metodo Pagamento:</p>
+			  		<input type="radio" id="carta" name="metodoPagamento" value="Carta di Credito">
+			 		<label for="rosso">Carta di Credito</label><br>
+			  
+			  		<input type="radio" id=paypal name="metodoPagamento" value="PayPal">
+			  		<label for="blu">PayPal</label><br>
+			  
+			  		<input type="radio" id="applepay" name="metodoPagamento" value="ApplePay">
+			  		<label for="verde">ApplePay</label><br>
+			  		
+			  		<input type="radio" id="contrassegno" name="metodoPagamento" value="Contrassegno">
+			  		<label for="contrassegno">Contrassegno</label><br>
 			        
 			        <label for="bio">Bio:</label><br>
 			        <input type="text" id="bio" name="bio" required><br><br>
