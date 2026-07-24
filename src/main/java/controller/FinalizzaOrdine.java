@@ -110,7 +110,7 @@ public class FinalizzaOrdine extends HttpServlet {
 			}
 			//TODO AGGIUNGERE PREZZO TOTALE A BEAN ACQUISTO E DATABASE
 		
-			//double prezzoTotale = prezzo + iva;
+			double prezzoTotale = prezzo + iva;
 			acquisto.setIdAcquirente(idUtente);
 			acquisto.setIdLibro(idLibro);
 			acquisto.setIdVenditore(idVenditore);
@@ -118,9 +118,7 @@ public class FinalizzaOrdine extends HttpServlet {
 			acquisto.setIva(iva);
 			acquisto.setQuantita(1);
 			acquisto.setMetodoPagamento(metodoPagamento);
-			
-			//TODO 
-			//acquisto.setPrezzoTotale(prezzoTotale);
+			acquisto.setPrezzoTotale(prezzoTotale);
 		
 			try {
 				daoA.doSave(acquisto);
