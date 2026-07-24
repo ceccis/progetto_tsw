@@ -16,7 +16,7 @@ import javax.servlet.http.HttpSession;
 /**
  * Servlet Filter implementation class AdminFilter
  */
-@WebFilter("/AdminFilter")
+@WebFilter("/Admin/*")
 public class AdminFilter extends HttpFilter implements Filter {
        
     /**
@@ -50,20 +50,14 @@ public class AdminFilter extends HttpFilter implements Filter {
 
         HttpSession session = req.getSession(false);
 
-        // Utente non loggato
-        if (session == null || session.getAttribute("utente") == null) {
-            res.sendRedirect(req.getContextPath() + "/Login");
-            return;
-        }
-
-        // Utente loggato ma non admin
+        //controlla se l'utente e' admin tramite l'attributo isAdmin
         Boolean isAdmin = (Boolean) session.getAttribute("isAdmin");
         if (isAdmin == null || !isAdmin) {
             res.sendRedirect(req.getContextPath() + "/Catalogo");
             return;
         }
 
-        // Utente admin → continua verso la servlet Admin/Home o altre
+        
         chain.doFilter(request, response);
     }
 	
