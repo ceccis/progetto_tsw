@@ -45,7 +45,7 @@ public class Acquisti extends HttpServlet {
 		List<Acquisto> listaAcquisti = null;
 		try {
 			
-			listaAcquisti = dao.doRetrieveByKey(idUtente);
+			listaAcquisti = dao.doRetrieveByUtente(idUtente);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errore", "Errore nel caricamento degli acquisti");

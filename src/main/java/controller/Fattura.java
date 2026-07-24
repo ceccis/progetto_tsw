@@ -1,11 +1,20 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import model.dao.AcquistoDAO;
+import model.dao.ProdottoDAO;
+import model.dao.UtenteDAO;
+import model.bean.Acquisto;
+import model.bean.Prodotto;
+import model.bean.Utente;
 
 /**
  * Servlet implementation class Fattura
@@ -27,22 +36,46 @@ public class Fattura extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		String idAcquisto = request.getParameter("idAcquisto");
-		String idLibro = request.getParameter("idLibro");
-		String data = request.getParameter("data");
-		String prezzoStr = request.getParameter("prezzo");		/*dichiarazione doppia*/
-		String ivaStr = request.getParameter("iva");
+		String idAcquistoS = request.getParameter("idAcquisto");
+		int idAcquisto = Integer.parseInt(idAcquistoS);
+		AcquistoDAO adao = new AcquistoDAO();
+		Acquisto acquisto = null;
+		try {
+			acquisto = adao.doRetrieveByKey(idAcquisto);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		
-		double prezzo = Double.parseDouble(prezzoStr);
-		double iva = Double.parseDouble(ivaStr);
-		double totale = prezzo + iva;
+		//prendo i dati del cliente
+		UtenteDAO cdao = new UtenteDAO();
+		Utente c = null;
 		
-		request.setAttribute("idAcquisto", idAcquisto);
-		request.setAttribute("idLibro", idLibro);
-		request.setAttribute("data", data);
-		request.setAttribute("prezzo", prezzo);
-		request.setAttribute("iva", iva);
-		request.setAttribute("totale", totale);
+		try {
+			c = cdao.doRetrieveByKey(acquisto.getIdAcquirente());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		//prendo il libro
+		ProdottoDAO pdao = new ProdottoDAO();
+		Prodotto l = null;
+		
+		try {
+			l = pdao.doRetrieveByKey(acquisto.getIdLibro());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		request.setAttribute("acquisto", acquisto);
+		request.setAttribute("cliente", c);
+		request.setAttribute("libro", l);
+		request.setAttribute("indirizzoAcquirente", c.getNazione() + " " + c.getRegione() + " " + c.getProvincia()+ " " + c.getComune()+ " " + c.getVia()+ " " + c.getNumCiv());
+		
+		
+		
 		
 		request.getRequestDispatcher("/WEB-INF/views/fattura.jsp").forward(request, response);
 	}

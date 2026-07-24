@@ -45,7 +45,7 @@ public class AdminMostraOrdiniPerCliente extends HttpServlet {
 		List<Acquisto> listaOrdini = null;
 		try {
 			
-			listaOrdini = dao.doRetrieveByKey(idUtente);
+			listaOrdini = dao.doRetrieveByUtente(idUtente);
 		} catch (SQLException e) {
 			e.printStackTrace();
 			request.setAttribute("errore", "Errore nel caricamento degli acquisti");

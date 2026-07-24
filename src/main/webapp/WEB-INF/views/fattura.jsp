@@ -20,18 +20,22 @@
 		    </header>
 				
 			<div class="dettagli-ordine">
-                <p><strong>Numero Ordine:</strong> ${ordine.id}</p>
-                <p><strong>Data:</strong> ${ordine.data}</p>
-                <p><strong>Cliente:</strong> ${utente.nome} ${utente.cognome}</p>
+			<c:if test="${not empty libro}">
+                <p><strong>Numero Ordine:</strong> ${acquisto.idAcquisto}</p>
+                <p><strong>Data:</strong> ${acquisto.data}</p>
+                <p><strong>Id Venditore:</strong> ${acquisto.idVenditore}</p>
+                <p><strong>Cliente:</strong> ${cliente.nome} ${cliente.cognome}</p>
+                <p><strong>Indirizzo Cliente: </strong> ${indirizzoAcquirente} </p>
+            </c:if>
             </div>
 
             <br>
 
-			<c:if test="${empty libri}">
+			<c:if test="${empty libro}">
                 <p>Nessun libro trovato per questo ordine.</p>
             </c:if>
 
-            <c:if test="${not empty libri}">
+            <c:if test="${not empty libro}">
                 <table class="tabella-fattura">
                     <tr>
                         <th>ID</th>
@@ -40,23 +44,23 @@
                         <th>Prezzo</th>
                         <th>ISBN</th>
                     </tr>
-
-                    <c:forEach var="p" items="${libri}">
                         <tr>
-                            <td>${p.id}</td>
-                            <td>${p.titolo}</td>
-                            <td>${p.autore}</td>
-                            <td>${p.prezzo} &euro;</td>
-                            <td>${p.ISBN}</td>
+                            <td>${libro.id}</td>
+                            <td>${libro.titolo}</td>
+                            <td>${libro.autore}</td>
+                            <td>${libro.prezzo} &euro;</td>
+                            <td>${libro.ISBN}</td>
                         </tr>
-                    </c:forEach>
+                  
                 </table>
             </c:if>
 
             <br>
             
             <div class="totale-fattura">
-                <h3>Totale: ${ordine.totale} &euro;</h3>
+            	
+                <h3>Totale (prezzo + iva): ${acquisto.prezzoTotale} &euro;</h3>
+                <h4>(Iva: ${acquisto.iva}&euro;)</h4>
             </div>
 
             <br><br>

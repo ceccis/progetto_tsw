@@ -48,7 +48,7 @@
 				            </div>
 				            
 				            <div class="acquisto">
-				            	<a href="${pageContext.request.contextPath}/Fattura?idAcquisto=${a.idAcquisto}&idLibro=${a.idLibro}&prezzo=${a.prezzo}&iva=${a.iva}&data=${a.data}" class="btn-fattura">Visualizza Fattura</a>
+				            	<a href="${pageContext.request.contextPath}/Fattura?idAcquisto=${a.idAcquisto}">Visualizza Fattura</a>
 				            </div>
 				            
 			            </li>
