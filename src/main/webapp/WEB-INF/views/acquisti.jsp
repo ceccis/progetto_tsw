@@ -8,6 +8,7 @@
 	    <title>I tuoi acquisti</title>
 	    <link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
 	</head>
 	
 	<body>
@@ -34,14 +35,22 @@
 			<c:if test="${not empty acquisti}">
 			    <ul>
 			        <c:forEach var="a" items="${acquisti}">
-			            <li>
-			                <strong>ID Acquisto:</strong> ${a.idAcquisto} <br>
-			                <strong>ID Libro:</strong> ${a.idLibro} <br>
-			                <strong>Prezzo:</strong> ${a.prezzo} <br>
-			                <strong>IVA :</strong> ${a.iva} <br>
-			                <strong>Prezzo totale (prezzo unitario + iva):</strong> ${a.prezzoTotale} <br>
-			                <strong>ID Venditore:</strong> ${a.idVenditore} <br>
-			                <strong>Data:</strong> ${a.data} <br><br>
+			            <li class="acqisto">
+			            
+			            	<div class="dati-acquisto">      <%--altromenti stanno in una lista a caso --%>  
+				                <strong>ID Acquisto:</strong> ${a.idAcquisto} <br>
+				                <strong>ID Libro:</strong> ${a.idLibro} <br>
+				                <strong>Prezzo:</strong> ${a.prezzo} <br>
+				                <strong>IVA :</strong> ${a.iva} <br>
+				                <strong>Prezzo totale (prezzo unitario + iva):</strong> ${a.prezzoTotale} <br>
+				                <strong>ID Venditore:</strong> ${a.idVenditore} <br>
+				                <strong>Data:</strong> ${a.data} <br><br>
+				            </div>
+				            
+				            <div class="acquisto">
+				            	<a href="${pageContext.request.contextPath}/Fattura?idAcquisto=${a.idAcquisto}&idLibro=${a.idLibro}&prezzo=${a.prezzo}&iva=${a.iva}&data=${a.data}" class="btn-fattura">Visualizza Fattura</a>
+				            </div>
+				            
 			            </li>
 			        </c:forEach>
 			    </ul>
