@@ -16,6 +16,7 @@ pageEncoding="UTF-8" %>
 		<title>Login</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css_inline/style_inline.css">
 	</head>
 	
 	<body>
@@ -61,3 +62,31 @@ pageEncoding="UTF-8" %>
 	</body>
 </html>
 
+=======
+		<%@ include file= "fragment/menu.jspf" %>
+	
+		<h1> Pagina login </h1>
+	
+		<form onsubmit="validazioneLogin(event)">       <!--funzione eseguita prima di inviare alla servlet --> 
+	        <div>
+	            <label for="username">Username:</label>
+	            <input type="text" id="username" name="username" placeholder="Inserisci il nome utente">
+	            <span id="erroreusername" class="errore"></span>         <!-- elemento inline, contenitore generico -->
+	        </div>
+	        
+	        <div>
+	            <label for="password">Password:</label>
+	            <input type="password" id="password" name="password" placeholder="Inserisci la password">
+	            <span id="errorepassword" class="errore"></span>
+	        </div>
+	        
+	        <button type="submit">Accedi</button>
+		</form>
+		
+		<%@ include file="fragment/footer.jspf" %>
+
+    <script src="${pageContext.request.contextPath}/script/erroreinline.js"></script>
+	
+	</body>
+</html>
+>>>>>>> errori-inline
