@@ -13,7 +13,7 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/stile_inline.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/registrazione.css">
-	</head>
+		<script src="${pageContext.request.contextPath}/script/registrazione.js"></script>
 	
 	<body>
 		<%@ include file="fragment/header.jspf" %>

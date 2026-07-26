@@ -49,6 +49,7 @@ public class VerificaEmail extends HttpServlet {
         try {
         	esiste = dao.doCheckEmail(email);
         } catch (Exception e) {
+        	System.out.println("ERRORE VERIFICA EMAIL: " + e.getMessage());
         	e.printStackTrace();
         	out.print("false");
         	return;

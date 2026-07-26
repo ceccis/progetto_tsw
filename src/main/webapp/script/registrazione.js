@@ -11,6 +11,7 @@ function checkEmail() {
 	if (!regexEmail.test(emailInserita)){
 		spanMessaggio.innerText = "Il formato della mail non è valido";
 		spanMessaggio.style.color = "red";
+		spanMessaggio.style.display = "block";
 		return;
 	}
 	
@@ -18,14 +19,16 @@ function checkEmail() {
 
     xhr.onreadystatechange = function() {
         if (xhr.readyState === 4 && xhr.status === 200) {
-            var risposta = xhr.responseText;                //risposta dalla servlet
-
+            var risposta = xhr.responseText.trim();                //risposta dalla servlet
+			
             if (risposta === "true") {
                 spanMessaggio.innerText = "Attenzione: email già in uso!";
                 spanMessaggio.style.color = "red";
+				spanMessaggio.style.display = "block";
             } else if (risposta === "false") {
                 spanMessaggio.innerText = "Email disponibile";
                 spanMessaggio.style.color = "green";
+				spanMessaggio.style.display = "block";
             }
         }
     };
