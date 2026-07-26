@@ -56,7 +56,7 @@ public class RicercaServlet extends HttpServlet {
 		}
 		
 		if (listaRisultati.isEmpty()) {
-			out.print("<p>La ricerca non ha prodotto risultati.</p>");
+			out.print("<p>La ricerca non ha prodotto risultati</p>");
 	    } else {
 	    	String contextPath = request.getContextPath();
 	    	

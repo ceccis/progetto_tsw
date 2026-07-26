@@ -41,6 +41,9 @@ public class LoginFilter extends HttpFilter implements Filter {
             path.endsWith("index.jsp") ||
             path.contains("/css/") ||
             path.contains("/js/") ||
+            path.contains("/script/") ||
+            path.contains("/RicercaServlet/") ||
+            path.contains("/VerificaEmail/") ||
             path.contains("/img/")) {
 
             chain.doFilter(request, response);

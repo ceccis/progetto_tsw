@@ -37,7 +37,7 @@
 			        <c:forEach var="a" items="${acquisti}">
 			            <li class="acqisto">
 			            
-			            	<div class="dati-acquisto">      <%--altromenti stanno in una lista a caso --%>  
+			            	<div class="dati-acquisto">      <%--altrimenti stanno in una lista a caso --%>  
 				                <strong>ID Acquisto:</strong> ${a.idAcquisto} <br>
 				                <strong>ID Libro:</strong> ${a.idLibro} <br>
 				                <strong>Prezzo:</strong> ${a.prezzo} <br>

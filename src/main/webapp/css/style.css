@@ -1,6 +1,6 @@
 @charset "UTF-8";
 
-* {                           /*per non far scorrere in orizzontale*/
+* {                    /*per non far scorrere in orizzontale*/
     box-sizing: border-box;
 }
 
@@ -67,12 +67,28 @@ main {                 /*contenuti unici di quella pagina, escludendo header e f
 }
 
 .search-container {
-    display: flex;
-    gap: 10px; /* separa barra e tasto" */
+    position: relative;     /*serve per far uscire i risultati sotto e non a lato*/
+    gap: 10px;              /* separa barra e tasto" */
     align-items: center;
 }
 
-#searchBar {
+#risultatiRicerca {       /*# e non . perchè è un elemento unico nella pagina mentre la classe è per più cose*/
+	display: none;        /*altrimenti si vede la striscia del bordo*/
+    position: absolute;
+    top: 100%;             /* parte subito dopo il container*/
+    left: 0;
+    width: 300px;  
+    padding: 10px;        
+    background-color: #FFF9F3;
+    border: 1px solid #443223;
+    border-radius: 10px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;      /* scrollbar */
+    z-index: 200;          /* sopra al resto del contenuto, incluso l'header*/
+}
+
+#searchBar {     
     width: 300px;
     padding: 10px 15px;
     border-radius: 20px;
@@ -94,6 +110,8 @@ main {                 /*contenuti unici di quella pagina, escludendo header e f
 .btn-login {
 	background-color: #FFF9F3;
 	color: black;
+	border: 1px solid #443223;     /*marrone*/
+	border-radius: 8px;
 	border-style: outset;
 	padding: 10px;
 	margin: 10px;
@@ -105,6 +123,8 @@ main {                 /*contenuti unici di quella pagina, escludendo header e f
 .btn-registrazione {
 	background-color: #755151;
 	color: white;
+	border: 1px solid;     /*marrone*/
+	border-radius: 8px;
 	border-style: outset;
 	padding: 10px;
 	margin: 10px;
@@ -120,3 +140,18 @@ a {
 a:hover {
 	text-decoration: underline;
 }
+
+.lista-suggerimenti {
+	list-style: none;     /*scompaiono i pallini*/
+}
+
+.lista-suggerimenti {
+	cursor: pointer;
+}
+
+.lista-suggerimenti li:hover {
+	background-color: rgba(68, 50, 35, 0.5);   /*verde chiaro*/ 	
+}
+
+
+

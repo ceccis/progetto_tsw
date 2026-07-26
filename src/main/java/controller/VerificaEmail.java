@@ -1,6 +1,8 @@
 package controller;
 
 import java.io.IOException;
+import java.io.PrintWriter;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -39,6 +41,19 @@ public class VerificaEmail extends HttpServlet {
         
         response.setContentType("text/plain");
         response.setCharacterEncoding("UTF-8");
+        PrintWriter out = response.getWriter();
         
+        UtenteDAO dao = new UtenteDAO();
+        boolean esiste = false;
+        
+        try {
+        	esiste = dao.doCheckEmail(email);
+        } catch (Exception e) {
+        	e.printStackTrace();
+        	out.print("false");
+        	return;
+        }
+        
+        out.print(esiste ? "true" : "false");
     }
 }

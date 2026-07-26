@@ -16,14 +16,14 @@ pageEncoding="UTF-8" %>
 		<title>Login</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
-		<link rel="stylesheet" href="${pageContext.request.contextPath}/css_inline/style_inline.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/stile_inline.css">
+		<script src="${pageContext.request.contextPath}/script/erroreinline.js"></script>
 	</head>
 	
 	<body>
 		<%@ include file="fragment/header.jspf" %>
 		
-		<main>	
-			<h1> Pagina login </h1>			
+		<main>				
 			
 			<c:if test="${not empty successo}">
 			    <div id="boxSucc" class="successo">
@@ -33,15 +33,17 @@ pageEncoding="UTF-8" %>
 			    <c:remove var="successo" scope="session"/>
 			</c:if>
 			
-			<form action="Login" method="POST">
+			<form class="form-account" action="Login" method="POST" onsubmit="return validazioneLogin(event)">
 			  <h2>Accedi</h2>
 			  	<label for="username">Username</label>
-			  	<input  id="username" name="username" required>
+			  	<input id="username" name="username" placeholder="Inserisci il nome utente">
+			  	<span id="erroreUsername" class="errore"></span>
 			  
 			 	<label for="password">Password</label>
-			  	<input type="password" id="password" name="password" required>
+			  	<input type="password" id="password" name="password" placeholder="Inserisci la password">
+			  	<span id="errorePassword" class="errore"></span>
 			  
-			  <button type="submit">Entra</button>
+			  <button type="submit" class="form-account btn">Entra</button>
 			</form>
 			
 			<% 
@@ -62,31 +64,3 @@ pageEncoding="UTF-8" %>
 	</body>
 </html>
 
-=======
-		<%@ include file= "fragment/menu.jspf" %>
-	
-		<h1> Pagina login </h1>
-	
-		<form onsubmit="validazioneLogin(event)">       <!--funzione eseguita prima di inviare alla servlet --> 
-	        <div>
-	            <label for="username">Username:</label>
-	            <input type="text" id="username" name="username" placeholder="Inserisci il nome utente">
-	            <span id="erroreusername" class="errore"></span>         <!-- elemento inline, contenitore generico -->
-	        </div>
-	        
-	        <div>
-	            <label for="password">Password:</label>
-	            <input type="password" id="password" name="password" placeholder="Inserisci la password">
-	            <span id="errorepassword" class="errore"></span>
-	        </div>
-	        
-	        <button type="submit">Accedi</button>
-		</form>
-		
-		<%@ include file="fragment/footer.jspf" %>
-
-    <script src="${pageContext.request.contextPath}/script/erroreinline.js"></script>
-	
-	</body>
-</html>
->>>>>>> errori-inline

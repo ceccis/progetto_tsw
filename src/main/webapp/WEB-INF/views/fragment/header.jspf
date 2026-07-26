@@ -35,9 +35,7 @@
 </header>
 
 <script>
-	document.getElementById("searchBar").addEventListener("input", function() {
-		ricercaLibro();
-	});
+	document.getElementById("searchBar").addEventListener("input", function() {ricercaLibro();});
 
 	function ricercaLibro() {
 		var text = document.getElementById("searchBar").value;
@@ -45,9 +43,12 @@
 
 		if (text.length === 0) {
 			results.innerHTML = ""; /*se la ricerca viene cancellata, inner inserisce "" al suo posto*/
-			return; /*esce dalla funzione*/
+			results.style.display = "none";
+			return;                 /*esce dalla funzione*/
 		}
 
+		results.style.display = "block";
+		
 		var xhr = new XMLHttpRequest();
 		xhr.onreadystatechange = function() {
 			if (this.readyState == 4 && this.status == 200) {
@@ -57,8 +58,7 @@
 			}
 		}
 
-		xhr.open("GET", "RicercaServlet?query=" + encodeURIComponent(text),
-				true);
+		xhr.open("GET", "RicercaServlet?query=" + encodeURIComponent(text), true);
 		xhr.send();
 
 	}

@@ -8,17 +8,18 @@
 <html>
 	<head>
 		<meta charset="UTF-8">
-		<title>${pageTitle}</title>
+		<title>Registrazione</title>
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/style.css">
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/messaggi.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/stile_inline.css">
+		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/registrazione.css">
 	</head>
 	
 	<body>
 		<%@ include file="fragment/header.jspf" %>
-<<<<<<< HEAD
-		
+
 		<main>
-			<h1> Pagina registrazione</h1>
+			<h1> Ciao, benvenuto sul sito!</h1>
 			
 			<% 
 			    String err = (String) request.getAttribute("errore");
@@ -29,58 +30,86 @@
 			        <% } %>
 			    </div>
 			    
-			<form action="Registrazione" method="POST">
+			<form class="form-account" action="Registrazione" method="POST">
 			
-					<label for="nome">Nome:</label><br>
-			        <input type="text" id="nome" name="nome" required><br><br>
+				<div class="riga-form">
+				    <div class="coppia-elementi">
+				        <label for="nome">Nome:</label>
+				        <input type="text" id="nome" name="nome" required>	
+				    </div>
+				    <div class="coppia-elementi">
+				        <label for="cognome">Cognome:</label>
+				        <input type="text" id="cognome" name="cognome" required>
+				    </div>
+				</div>
+					
+				<div class="riga-form">
+				    <div class="coppia-elementi">
+				        <label for="username">Nome utente:</label>
+				        <input type="text" id="username" name="username" required>
+					</div>
+			    	<div class="coppia-elementi">
+					    <label for="email">Email:</label>
+					    <input type="email" id="email" name="email" required onblur="checkEmail()">
+					    <span id="rispostaAjax" class="errore"></span>     <%--per il controllo ajax della mail già presente --%>
+				    </div>
+				</div>
+				
+			    <label for="password">Password:</label>
+			    <input type="password" id="password" name="password" required>
 			        
-			        <label for="cognome">Cognome:</label><br>
-			        <input type="text" id="cognome" name="cognome" required><br><br>
-			
-			        <label for="username">Nome utente:</label><br>
-			        <input type="text" id="username" name="username" required><br><br>
-			
-			        <label for="email">Email:</label><br>
-			        <input type="email" id="email" name="email" required><br><br>
-			
-			        <label for="password">Password:</label><br>
-			        <input type="password" id="password" name="password" required><br><br>
+		        <p>Metodo Pagamento:</p>
+			        <div class="radio-group">
+				  		<input type="radio" id="carta" name="metodoPagamento" value="Carta di Credito">
+				 		<label for="carta">Carta di Credito</label>
+					  
+					  	<input type="radio" id="paypal" name="metodoPagamento" value="PayPal">
+					  	<label for="paypal">PayPal</label>
+					  
+						<input type="radio" id="applepay" name="metodoPagamento" value="ApplePay">
+					  	<label for="applepay">ApplePay</label>
+					  		
+					  	<input type="radio" id="contrassegno" name="metodoPagamento" value="Contrassegno">
+						<label for="contrassegno">Contrassegno</label>
+				  	</div>
 			        
-			        <p>Metodo Pagamento:</p>
-			  		<input type="radio" id="carta" name="metodoPagamento" value="Carta di Credito">
-			 		<label for="rosso">Carta di Credito</label><br>
-			  
-			  		<input type="radio" id=paypal name="metodoPagamento" value="PayPal">
-			  		<label for="blu">PayPal</label><br>
-			  
-			  		<input type="radio" id="applepay" name="metodoPagamento" value="ApplePay">
-			  		<label for="verde">ApplePay</label><br>
-			  		
-			  		<input type="radio" id="contrassegno" name="metodoPagamento" value="Contrassegno">
-			  		<label for="contrassegno">Contrassegno</label><br>
+			     <label for="bio">Bio:</label>
+			     <textarea id="bio" name="bio" required></textarea>
 			        
-			        <label for="bio">Bio:</label><br>
-			        <input type="text" id="bio" name="bio" required><br><br>
-			        
-			        <label for="nazione">Nazione:</label><br>
-			        <input type="text" id="nazione" name="nazione" required><br><br>
-			        
-			        <label for="regione">Regione:</label><br>
-			        <input type="text" id="regione" name="regione" required><br><br>
-			        
-			        <label for="provincia">Provincia:</label><br>
-			        <input type="text" id="provincia" name="provincia" required><br><br>
-			        
-			        <label for="comune">Comune:</label><br>
-			        <input type="text" id="comune" name="comune" required><br><br>
-			        
-			        <label for="via">Via:</label><br>
-			        <input type="text" id="via" name="via" required><br><br>
-			        
-			        <label for="numCiv">Numero Civico:</label><br>
-			        <input type="text" id="numCiv" name="numCiv" required><br><br>
-			        
-			        <button type="submit" class="btn-aggiungi-vendita">Registrati</button>
+				<div class="riga-form">
+				    <div class="coppia-elementi">
+				        <label for="nazione">Nazione:</label>
+				        <input type="text" id="nazione" name="nazione" required>
+				    </div>
+				    <div class="coppia-elementi">
+				        <label for="regione">Regione:</label>
+				        <input type="text" id="regione" name="regione" required>
+				    </div>
+				</div>
+				
+				<div class="riga-form">
+				    <div class="coppia-elementi">
+				        <label for="provincia">Provincia:</label>
+				        <input type="text" id="provincia" name="provincia" required>
+				    </div>
+				    <div class="coppia-elementi">
+				        <label for="comune">Comune:</label>
+				        <input type="text" id="comune" name="comune" required>
+				    </div>
+				</div>
+				
+				<div class="riga-form">
+				    <div class="coppia-elementi">
+				        <label for="via">Via:</label>
+				        <input type="text" id="via" name="via" required>
+				    </div>
+				    <div class="coppia-elementi">
+				        <label for="numCiv">Numero Civico:</label>
+				        <input type="text" id="numCiv" name="numCiv" required>
+				    </div>
+				</div>
+			    
+			        <button type="submit" class="form-account btn">Registrati</button>
 			    </form>
 		</main>
 		
@@ -88,25 +117,3 @@
 	</body>
 </html>
 
-=======
-		<%@ include file= "fragment/menu.jspf" %>
-	
-		<h1> Pagina registrazione</h1>
-	
-		<form action= "VerificaEmail" method= "POST">
-			<div>
-				<label for="email">Email:</label>
-				<input type="email" id="email" name="email" placeholder="es. mario.rossi@gmail.com" required>
-				<span id="rispostaAjax"></span>
-			</div>
-			
-			<button type="submit">Registrati</button>
-		
-		</form>
-		
-		<script src="${pageContext.request.contextPath}/script_js/registrazione.js"></script>
-	
-		<%@ include file="fragment/footer.jspf" %>
-	</body>
-</html>
->>>>>>> controllo_email
