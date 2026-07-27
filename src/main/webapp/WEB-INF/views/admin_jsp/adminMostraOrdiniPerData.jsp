@@ -11,8 +11,7 @@
 	</head>
 	
 	<body>
-		 <%@ include file="../fragment/header.jspf" %>
-	
+		
 		<main>
 			<h2>Ordini nell'intervallo selezionato</h2>
 			

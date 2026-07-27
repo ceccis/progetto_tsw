@@ -10,7 +10,6 @@
 		<link rel="stylesheet" href="${pageContext.request.contextPath}/css/stile_inline.css">
 	</head>
 	<body>
-		<%@ include file="../fragment/header.jspf" %>
 		
 		<main>
 			<h2>Storico ordini (Admin)</h2>

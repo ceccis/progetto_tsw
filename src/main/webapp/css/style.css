@@ -206,5 +206,8 @@ a:visited {
     color: inherit;
 }
 
+.link-ordini a {
+	margin: 0 20px;
+}
 
 

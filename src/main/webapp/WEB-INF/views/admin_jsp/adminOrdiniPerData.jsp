@@ -10,8 +10,7 @@
 	</head>
 	
 	<body>
-		<%@ include file="../fragment/header.jspf" %>
-	
+		
 		<main>
 			<h2>Cerca ordini per intervallo di date</h2>
 			

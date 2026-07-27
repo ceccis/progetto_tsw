@@ -13,8 +13,7 @@
 	</head>
 	
 	<body>
-		<%@ include file="../fragment/header.jspf" %>
-	
+		
 		<main>
 			<h2>Modifica prodotto</h2>
 			

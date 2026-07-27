@@ -13,7 +13,6 @@
 	</head>
 	
 	<body>
-		<%@ include file="../fragment/header.jspf" %>
 		
 		<main>
 			<h2>Dettaglio libro</h2>

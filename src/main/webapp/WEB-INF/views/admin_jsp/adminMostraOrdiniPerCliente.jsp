@@ -11,7 +11,6 @@
 	</head>
 
 	<body>
-		<%@ include file="../fragment/header.jspf" %>
 		
 		<main>
 			<h2>Ordini dell'utente</h2>
