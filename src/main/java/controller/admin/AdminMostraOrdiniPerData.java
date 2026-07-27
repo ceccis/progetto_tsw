@@ -72,7 +72,8 @@ public class AdminMostraOrdiniPerData extends HttpServlet {
 		
 		
 		request.setAttribute("acquisti", listaAcquisti);
-		request.getRequestDispatcher("/WEB-INF/views/admin/adminMostraOrdiniPerData.jsp").forward(request,  response);
+		request.getRequestDispatcher("/WEB-INF/views/admin_jsp/adminMostraOrdiniPerData.jsp").forward(request, response);
+		
 	}
 
 	/**

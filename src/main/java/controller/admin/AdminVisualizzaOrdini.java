@@ -46,7 +46,8 @@ public class AdminVisualizzaOrdini extends HttpServlet {
 			request.setAttribute("errore", "Errore nel caricamento degli acquisti");
 		}
 		request.setAttribute("ordini", listaOrdini);
-		request.getRequestDispatcher("/WEB-INF/views/admin/ordiniAdmin.jsp").forward(request,  response);
+		request.getRequestDispatcher("/WEB-INF/views/admin_jsp/ordiniAdmin.jsp").forward(request, response);
+		
 	}
 
 	/**

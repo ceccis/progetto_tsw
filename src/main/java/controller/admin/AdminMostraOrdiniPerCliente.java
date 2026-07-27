@@ -51,7 +51,8 @@ public class AdminMostraOrdiniPerCliente extends HttpServlet {
 			request.setAttribute("errore", "Errore nel caricamento degli acquisti");
 		}
 		request.setAttribute("ordini", listaOrdini);
-		request.getRequestDispatcher("/WEB-INF/views/admin/adminMostraOrdiniPerCliente.jsp").forward(request,  response);
+		request.getRequestDispatcher("/WEB-INF/views/admin_jsp/adminMostraOrdiniPerCliente.jsp").forward(request, response);
+		
 	}
 
 	/**

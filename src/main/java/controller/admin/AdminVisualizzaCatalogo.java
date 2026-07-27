@@ -45,7 +45,7 @@ public class AdminVisualizzaCatalogo extends HttpServlet {
 			request.setAttribute("errore", "Errore nel caricamento del catalogo");
 		}
 		request.setAttribute("prodotti", listaProdotti);
-		request.getRequestDispatcher("/WEB-INF/views/admin/adminIndex.jsp").forward(request, response);
+		request.getRequestDispatcher("/WEB-INF/views/admin_jsp/adminIndex.jsp").forward(request, response);
 	}
 
 	/**

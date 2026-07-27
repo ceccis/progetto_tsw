@@ -51,6 +51,7 @@ public class AdminModificaProdotto extends HttpServlet {
         // passo il,libro alla JSP
         request.setAttribute("libro", libro);
 
-        request.getRequestDispatcher("/WEB-INF/views/admin/adminModificaProdotto.jsp").forward(request,  response);
+        request.getRequestDispatcher("/WEB-INF/views/admin_jsp/adminModificaProdotto.jsp").forward(request, response);
+        
     }
 }

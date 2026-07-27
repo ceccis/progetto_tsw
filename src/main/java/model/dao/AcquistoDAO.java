@@ -136,7 +136,7 @@ public class AcquistoDAO {
 	//metodo per restituire tutti gli acquisti fatti in uno specifico range di date
 	public List<Acquisto> doRetrieveByDate(Date data_inizio, Date data_fine) throws SQLException{
 		
-		String sql = "SELECT * FROM acquisto WHERE data_acquisto BETWEEN ? AND ?";
+		String sql = "SELECT * FROM acquisto WHERE data_acquisto >= ? AND data_acquisto < (? + INTERVAL 1 DAY)";
 		List<Acquisto> acquisti = new ArrayList<>();
 		
 		try(Connection con = ConnectionPool.getConnection();
