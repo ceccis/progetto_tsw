@@ -44,6 +44,7 @@ public class LoginFilter extends HttpFilter implements Filter {
             path.contains("/script/") ||
             path.contains("/RicercaServlet") ||
             path.contains("/VerificaEmail") ||
+            path.contains("/FotoProdotto") ||
             path.contains("/img/")) {
 
             chain.doFilter(request, response);

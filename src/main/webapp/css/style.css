@@ -14,6 +14,16 @@ body {                 /* tutto ciò presente sulla pagina (header, footer menu 
 
 main {                 /*contenuti unici di quella pagina, escludendo header e footer*/
 	flex: 1;
+	padding: 0 30px;
+}
+
+h2 {
+	margin-bottom: 5 px;
+}
+
+h3 {
+	margin-top: 5px;
+	font-size: 1.6em;
 }
 
 .titolo-main {
@@ -141,6 +151,10 @@ a:hover {
 	text-decoration: underline;
 }
 
+a:visited {
+	color: inherit;	
+}
+
 .lista-suggerimenti {
 	list-style: none;     /*scompaiono i pallini*/
 }
@@ -151,6 +165,45 @@ a:hover {
 
 .lista-suggerimenti li:hover {
 	background-color: rgba(68, 50, 35, 0.5);   /*verde chiaro*/ 	
+}
+
+.catalogo-libri {
+	list-style: none;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);    /*3 colonne larghe uguali*/
+	gap: 30px;
+}
+
+.libro {
+	width: 160px;
+	text-align: center;
+	border: 1px solid rgba(68, 50, 35);
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.libro img {
+	width: 100%;
+	height: 220px;
+	height: auto;
+	border-radius: 5px;
+}
+
+.azioni-libro {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin-top: 8px;
+	align-items: center;
+}
+
+.azioni-libro a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
 }
 
 

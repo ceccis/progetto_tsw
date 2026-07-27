@@ -30,10 +30,14 @@
 				</div>
 			
 			
-			    <div class="profilo-sidebar">
-			        <div class="profilo-immagine">
-			            <img src="${pageContext.request.contextPath}/immagini/R.png" alt="Immagine profilo">
-			        </div>
+			    <form action="AggiornaImmagineProfilo" method="POST" enctype="multipart/form-data" id="formImmagine">
+				    <div class="profilo-immagine">
+				        <label for="inputImmagine" style="cursor: pointer;">
+				            <img src="${pageContext.request.contextPath}/immagini/R.png" alt="Immagine profilo">
+				        </label>
+				        <input type="file" id="inputImmagine" name="foto" accept="image/*" style="display: none;" onchange="document.getElementById('formImmagine').submit();">
+				    </div>
+				</form>
 				
 					<nav class="profilo-menu">
 		            <form action="ModificaProfilo" method="GET">
