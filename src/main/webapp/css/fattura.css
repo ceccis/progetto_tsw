@@ -1,0 +1,38 @@
+@charset "UTF-8";
+
+@media print {
+   
+    .no-print,       /*nasconde header e footer*/
+    header,
+    footer,
+    nav {
+        display: none !important;
+    }
+
+    body {
+        background-color: white !important;
+        color: black !important;
+        margin: 0 !important;
+        padding: 0 !important;
+        font-size: 12pt;
+    }
+
+    .tabella-fattura {
+        width: 100%;
+        border-collapse: collapse;
+        page-break-inside: avoid;
+        margin-top: 20px;
+    }
+
+    .tabella-fattura th, 
+    .tabella-fattura td {
+        border: 1px solid black !important;
+        padding: 10px;
+        text-align: left;
+    }
+
+    main {
+        margin: 0;
+        padding: 15mm; 
+    }
+}

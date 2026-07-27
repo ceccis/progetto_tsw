@@ -1,11 +1,18 @@
 package controller;
 
 import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import model.bean.Prodotto;
+import model.bean.Utente;
+import model.dao.ProdottoDAO;
 
 /**
  * Servlet implementation class Vendite
@@ -26,11 +33,28 @@ public class Vendite extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
-		request.setAttribute("pageTitle", "Pagina Vendite");
-		request.getRequestDispatcher("/WEB-INF/views/vendite.jsp").forward(request, response);
-		//response.getWriter().append("Served at: ").append(request.getContextPath());
+
+		HttpSession session = request.getSession(false);
+
+		//tolto il controllo per vedere se l'utente e' loggato perche' poi faro' un filtro che gestisce questa cosa
+		
+        Utente u = new Utente();
+        u = (Utente) session.getAttribute("utente");
+        int idUtente = u.getId();
+		ProdottoDAO dao = new ProdottoDAO();
+		List<Prodotto> listaVendite = null;
+		try {
+			
+			listaVendite = dao.retrieveVenditeAttive(idUtente);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			request.setAttribute("errore", "Errore nel caricamento delle vendite");
+		}
+		request.setAttribute("vendite", listaVendite);
+		request.getRequestDispatcher("/WEB-INF/views/vendite.jsp").forward(request,  response);;
+
 	}
+	
 
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)

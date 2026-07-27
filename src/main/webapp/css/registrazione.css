@@ -1,0 +1,63 @@
+@charset "UTF-8";
+
+.form-account p {
+    margin-top: 20px;
+    font-weight: bold;
+}
+
+.form-account .radio-group {
+	width: 500px;
+    margin-top: 10px;
+    display: flex;
+}
+
+.form-account .radio-group label {
+    display: inline;           /*per farli apparire di nuovo inline*/
+    font-weight: normal;
+    margin-top: 0;
+    margin-right: 15px;
+}
+
+.form-account input[type="radio"] {
+    margin-top: 0;
+    margin-right: 5px;
+}
+
+.form-account textarea {
+    width: 80%;
+    min-height: 120px;
+    padding: 8px;
+    margin-top: 5px;
+    resize: vertical;
+    font-family: inherit;
+    font-size: inherit;
+}
+
+.form-account input[type="text"] {
+    width: 80%;
+}
+
+.form-account .riga-form {
+	display: flex;
+	gap: 20px;
+}
+
+.form-account .coppia-elementi {
+	flex: 1;
+}
+
+.form-account .coppia-elementi input {
+    width: 100%;
+}
+
+.msg-errore {
+	max-width: 400px;
+    margin: 20px auto;
+    background-color: rgba(178, 34, 34, 0.5);
+    color: maroon;
+    border: 1px solid maroon;
+    padding: 10px;
+    border-radius: 5px;
+    font-weight: bold;
+    text-align: center;
+}

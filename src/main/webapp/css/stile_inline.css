@@ -1,0 +1,47 @@
+@charset "UTF-8";
+
+.errore {
+	display: none;      /*altrimenti appare sempre*/
+	color: maroon;
+	border: 1px solid maroon;
+	border-radius: 5px;
+	font-size: 14px;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	}
+	
+.form-account {         /*account perchè è login+registrazione*/
+    max-width: 400px;
+    margin: 40px auto;
+    text-align: center;
+}
+
+.form-account label {
+    display: block;     /*fa andare a capo*/
+    margin-top: 15px;
+    font-weight: bold;
+}
+
+.form-account input[type="text"], .form-account input[type="email"], 
+.form-account input[type="password"] {   /*posso riutilizzare la stessa classe per registrazione, altrimenti 
+    padding: 8px;                           i cerchietti del selettore si ingrandivano*/
+    margin-top: 5px;
+    width: 80%;
+}
+
+.form-account.btn {
+	margin-top: 10px;
+	padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #FFF9F3;
+    color: #443223;
+    border: 1px solid #443223;
+    font-weight: bold;
+    cursor: pointer;
+    display: block;
+    margin: 10px auto 0;
+}
+
+.btn:hover {
+	background-color: rgba(117, 81, 81, 50%);    /*rosa*/
+}

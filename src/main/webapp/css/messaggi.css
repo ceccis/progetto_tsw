@@ -1,0 +1,264 @@
+@charset "UTF-8";
+
+.successo {
+	 background-color: rgba(34, 139, 34, 0.5);
+	 color: darkGreen;
+	 border: 1px solid darkGreen;
+	 padding: 20px;
+	 border-radius: 5px;
+	 display: inline-flex;    /*non prende tutta la larghezza*/
+	 align-items: center;       
+     gap: 15px;                 
+	 font-weight: bold;	
+	 width: fit-content;        /*box si adatta al contenuto */
+     max-width: 90%; 
+}
+
+.errore {
+    background-color: rgba(178, 34, 34, 0.5);
+    color: maroon;
+    border: 1px solid maroon;
+    padding: 10px 15px;
+    border-radius: 5px;
+    display: inline-flex;
+    align-items: center;
+    gap: 15px;
+    font-weight: bold;
+    width: fit-content;
+    max-width: 90%;
+}
+
+.chiusura {
+    cursor: pointer;
+    font-size: 20px;
+    line-height: 1;
+    font-weight: bold;
+    padding-left: 10px;
+}
+
+.chiusura:hover {
+    color: #0b3014;
+}
+
+/*tabella che mostra le vendite effettuate*/
+.tabella-vendite {
+	padding: 8px;
+	border: 1px solid #443223;    /*marrone*/
+	border-radius: 10px;
+	border-collapse: separate;
+	text-align: center;
+	width: 100%;
+	overflow: hidden;
+}
+
+.tabella-vendite th,
+.tabella-vendite td {
+    padding: 14px 10px;            /*celle più larghe*/
+    border-bottom: 1px solid rgba(68, 50, 35, 0.2);   /*separa le righe leggermente */
+    border-right: 1px solid rgba(68, 50, 35, 0.2);
+}
+
+.tabella-vendite th:last-child,
+.tabella-vendite td:last-child {
+    border-right: none;
+}
+
+.tabella-vendite th {
+	background-color: rgba(68, 50, 35, 0.5);   /*verde chiaro*/ 	
+	font-weight: bold;
+}
+
+.tabella-vendite td a {
+	display: inline-block;
+	padding: 10px 16px;
+	margin: 10px;
+	font-size: 13px;
+	font-weight: bold;
+	border-radius: 10px;
+}
+
+.tabella-vendite td a[href^="Dettaglio"] {
+	background-color: rgba(117, 81, 81, 50%);     /*rosa*/
+	color: #FFF9F3;
+}
+
+.tabella-vendite td a[href^="Modifica"] {
+	background-color: rgba(117, 81, 81, 50%);     /*rosa*/
+	color: #FFF9F3;
+}
+
+.tabella-vendite td a[href^="Elimina"] {
+	background-color: rgba(117, 81, 81, 50%);     /*rosa*/
+	color: #FFF9F3;
+}
+
+.btn-aggiungi-vendita {
+	display: inline-block;   /*stanno affiancati ma il padding è regolabile*/
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;
+	border: 1px solid #443223;     /*marrone*/
+	color: #443223;   /*marrone*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.btn-aggiungi-vendita:hover {
+    background-color: rgba(68, 66, 45, 0.5) /*verde scuro*/
+}
+
+.btn-annulla-vendita {
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;      /*bianco*/
+	color: #443223;   /*verde chiaro*/
+	border: 1px solid #443223;     /*marrone*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.btn-annulla-vendita:hover {
+    background-color: rgba(117, 81, 8, 0.5) /*verde scuro*/
+}
+
+/*fattura*/
+.tabella-fattura {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.tabella-fattura th,
+.tabella-fattura td {
+    border: 1px solid #ddd;
+    padding: 10px 14px;
+    text-align: left;
+}
+
+.tabella-fattura th {
+    background-color: #443223;
+    color: #fff;
+}
+
+.btn-stampa {
+    margin-top: 20px;
+    padding: 10px 24px;
+    background-color: #443223;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.btn-stampa:hover {
+    background-color: #665038;
+}
+
+@media (max-width: 600px) {
+
+    .tabella-fattura thead {
+        display: none;
+    }
+
+    .tabella-fattura,
+    .tabella-fattura tbody,
+    .tabella-fattura tr,
+    .tabella-fattura td {
+        display: block;
+        width: 100%;
+    }
+
+    .tabella-fattura tr {
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px;
+    }
+
+    .tabella-fattura td {
+        border: none;
+        padding: 6px 0;
+        text-align: right;
+        position: relative;
+        padding-left: 45%;
+    }
+
+    .tabella-fattura td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 40%;
+        font-weight: bold;
+        text-align: left;
+    }
+}
+
+.lista-suggerimenti li {
+    padding: 8px 14px;
+    cursor: pointer;    /*altiemnti non esce la manina*/
+    font-size: 14px;
+}
+
+.btn-annulla-modifiche-profilo {
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;      /*bianco*/
+	color: #443223;   /*verde chiaro*/
+	border: 1px solid #443223;     /*marrone*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+.btn-conferma-modifiche {
+	margin-top: 20px;
+	padding: 12px 4px;
+	background-color: #FFF9F3;      /*bianco*/
+	color: rgba(117, 81, 8);   /*rosa*/
+	border: 1px solid rgba(117, 81, 8);     /*rosa*/
+	border-radius: 5px;
+	font-weight: bold;
+	font-size: 15px;
+}
+
+@media (max-width: 600px) {
+
+    .tabella-fattura thead {    /*l'intestazione sparisce completamente perch tanto la mettiamo sotto*/
+        display: none;
+    }
+
+    .tabella-fattura, 
+    .tabella-fattura tbody, 
+    .tabella-fattura tr, 
+    .tabella-fattura td {
+        display: block;    /*la tabella viene smontata e occupa la larghezza visto che è per lo schermo piccolo*/
+        width: 100%;
+    }
+
+    .tabella-fattura tr {
+        margin-bottom: 12px;
+        border: 1px solid #ddd;
+        border-radius: 6px;
+        padding: 8px;
+    }
+
+    .tabella-fattura td {
+        border: none;
+        padding: 6px 0;
+        text-align: right;
+        position: relative;
+        padding-left: 45%;
+    }
+
+    .tabella-fattura td::before {
+        content: attr(data-label);
+        position: absolute;
+        left: 0;
+        width: 40%;
+        font-weight: bold;
+        text-align: left;
+    }
+}

@@ -1,0 +1,213 @@
+@charset "UTF-8";
+
+* {                    /*per non far scorrere in orizzontale*/
+    box-sizing: border-box;
+}
+
+body {                 /* tutto ciò presente sulla pagina (header, footer menu ecc) */
+	margin: 0;
+	display: flex;
+	flex-direction: column;
+	background-color: #FFF9F3;
+	min-height: 100vh;
+}
+
+main {                 /*contenuti unici di quella pagina, escludendo header e footer*/
+	flex: 1;
+	padding: 0 30px;
+}
+
+h2 {
+	margin-bottom: 5 px;
+}
+
+h3 {
+	margin-top: 5px;
+	font-size: 1.6em;
+}
+
+.titolo-main {
+	margin: 0;
+	font-size: 50px;
+}
+
+#header {
+	background-color: #7C7960;
+	text-align: left;
+	padding: 30px;
+	font-size: 14px;
+	width: 100%;
+	position: sticky;
+	top: 0;
+	z-index: 100;   /*rimane sopra tutto, importanza 100*/
+}
+
+.header-top {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-bottom: 20px;
+}
+
+.header-bottom {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	margin-top: 15px;
+}
+
+.footer {
+	background-color: #7C7960;
+	font-size: 30px;
+	text-align: center;	
+	padding: 30px;                           
+  	margin-top: 50px; 
+}
+
+.nav-menu {
+    display: flex;
+    gap: 15px; 
+}
+
+.nav-menu a {
+    text-decoration: none;
+    color: #443223;
+    font-weight: bold;
+    font-size: 15px;
+}
+
+.search-container {
+    position: relative;     /*serve per far uscire i risultati sotto e non a lato*/
+    gap: 10px;              /* separa barra e tasto" */
+    align-items: center;
+}
+
+#risultatiRicerca {       /*# e non . perchè è un elemento unico nella pagina mentre la classe è per più cose*/
+	display: none;        /*altrimenti si vede la striscia del bordo*/
+    position: absolute;
+    top: 100%;             /* parte subito dopo il container*/
+    left: 0;
+    width: 300px;  
+    padding: 10px;        
+    background-color: #FFF9F3;
+    border: 1px solid #443223;
+    border-radius: 10px;
+    margin-top: 5px;
+    max-height: 300px;
+    overflow-y: auto;      /* scrollbar */
+    z-index: 200;          /* sopra al resto del contenuto, incluso l'header*/
+}
+
+#searchBar {     
+    width: 300px;
+    padding: 10px 15px;
+    border-radius: 20px;
+    border: 1px solid #443223;
+    outline: none;
+}
+
+
+#searchBtn {
+    padding: 10px 20px;
+    border-radius: 20px;
+    background-color: #FFF9F3;
+    color: #443223;
+    border: 1px solid #443223;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.btn-login {
+	background-color: #FFF9F3;
+	color: black;
+	border: 1px solid #443223;     /*marrone*/
+	border-radius: 8px;
+	border-style: outset;
+	padding: 10px;
+	margin: 10px;
+	position:fixed;
+	right: 120px;
+	top: 20px;
+}
+
+.btn-registrazione {
+	background-color: #755151;
+	color: white;
+	border: 1px solid;     /*marrone*/
+	border-radius: 8px;
+	border-style: outset;
+	padding: 10px;
+	margin: 10px;
+	position: fixed;
+	right: 15px;
+	top: 20px;
+}
+
+a {
+	text-decoration: none;
+}
+
+a:hover {
+	text-decoration: underline;
+}
+
+a:visited {
+	color: inherit;	
+}
+
+.lista-suggerimenti {
+	list-style: none;     /*scompaiono i pallini*/
+}
+
+.lista-suggerimenti {
+	cursor: pointer;
+}
+
+.lista-suggerimenti li:hover {
+	background-color: rgba(68, 50, 35, 0.5);   /*verde chiaro*/ 	
+}
+
+.catalogo-libri {
+	list-style: none;
+	padding: 0;
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);    /*3 colonne larghe uguali*/
+	gap: 30px;
+}
+
+.libro {
+	width: 160px;
+	text-align: center;
+	border: 1px solid rgba(68, 50, 35);
+    border-radius: 8px;
+    padding: 30px;
+}
+
+.libro img {
+	width: 100%;
+	height: 220px;
+	height: auto;
+	border-radius: 5px;
+}
+
+.azioni-libro {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+	margin-top: 8px;
+	align-items: center;
+}
+
+.azioni-libro a {
+    text-decoration: none;
+}
+
+a:visited {
+    color: inherit;
+}
+
+.link-ordini a {
+	margin: 0 20px;
+}
+
+
